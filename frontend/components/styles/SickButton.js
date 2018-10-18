@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const SickButton = styled.button`
   background: red;
@@ -15,6 +15,6 @@ const SickButton = styled.button`
   &[disabled] {
     opacity: 0.5;
   }
-`;
+`
 
-export default SickButton;
+export default SickButton

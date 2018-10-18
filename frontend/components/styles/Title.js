@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Title = styled.h3`
   margin: 0 1rem;
@@ -15,6 +15,6 @@ const Title = styled.h3`
     color: white;
     padding: 0 1rem;
   }
-`;
+`
 
-export default Title;
+export default Title

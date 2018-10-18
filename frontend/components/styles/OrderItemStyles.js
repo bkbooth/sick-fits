@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const OrderItemStyles = styled.li`
   box-shadow: ${props => props.theme.bs};
@@ -39,6 +39,6 @@ const OrderItemStyles = styled.li`
       margin-bottom: 1rem;
     }
   }
-`;
+`
 
-export default OrderItemStyles;
+export default OrderItemStyles

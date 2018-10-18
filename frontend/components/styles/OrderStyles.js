@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const OrderStyles = styled.div`
   max-width: 1000px;
@@ -34,5 +34,6 @@ const OrderStyles = styled.div`
       object-fit: cover;
     }
   }
-`;
-export default OrderStyles;
+`
+
+export default OrderStyles

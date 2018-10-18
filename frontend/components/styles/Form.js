@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
 const loading = keyframes`
   from {
@@ -10,7 +10,7 @@ const loading = keyframes`
     background-position: 100% 100%;
     /* rotate: 360deg; */
   }
-`;
+`
 
 const Form = styled.form`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
@@ -64,8 +64,8 @@ const Form = styled.form`
       animation: ${loading} 0.5s linear infinite;
     }
   }
-`;
+`
 
-Form.displayName = 'Form';
+Form.displayName = 'Form'
 
-export default Form;
+export default Form

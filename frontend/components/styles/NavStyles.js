@@ -13,8 +13,10 @@ const NavStyles = styled.ul`
     align-items: center;
     position: relative;
     text-transform: uppercase;
+    font-family: 'radnika_next';
     font-weight: 900;
     font-size: 1em;
+    color: ${props => props.theme.black};
     background: none;
     border: 0;
     cursor: pointer;

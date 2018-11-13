@@ -93,7 +93,6 @@ const Mutation = {
       where: { email: args.email },
       data: { resetToken, resetTokenExpiry },
     })
-    console.log(res)
     return { message: 'Thanks!' }
     // 3. email them the reset token
   },

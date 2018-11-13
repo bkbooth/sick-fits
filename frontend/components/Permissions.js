@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Error from './ErrorMessage'
@@ -42,7 +43,7 @@ const Permissions = props => (
               </tr>
             </thead>
             <tbody>
-              {data.users.map(user => <User user={user} key={user.id} />)}
+              {data.users.map(user => <UserPermissions user={user} key={user.id} />)}
             </tbody>
           </Table>
         </div>
@@ -51,13 +52,26 @@ const Permissions = props => (
   </Query>
 )
 
-class User extends React.Component {
+class UserPermissions extends React.Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      email: PropTypes.string,
+      permissions: PropTypes.array,
+    }).isRequired,
+  }
+
+  state = {
+    permissions: this.props.user.permissions,
+  }
+
   render() {
     const user = this.props.user
     return <tr>
       <td>{user.name}</td>
       <td>{user.email}</td>
-      {possiblePermissions.map(permission => <td key={`${user.id}-${permission}`}>
+      {possiblePermissions.map(permission => <td key={permission}>
         <label htmlFor={`${user.id}-permission-${permission}`}>
           <input type="checkbox" />
         </label>

@@ -9,7 +9,7 @@ import User from './User'
 import CartItem from './CartItem'
 import calcTotalPrice from '../lib/calcTotalPrice'
 import formatMoney from '../lib/formatMoney'
-import pluraliseName from '../lib/pluraliseName'
+import apostrophiseName from '../lib/apostrophiseName'
 
 const LOCAL_STATE_QUERY = gql`
   query LOCAL_STATE_QUERY {
@@ -38,7 +38,7 @@ const Cart = () => (
                       title="close"
                       onClick={toggleCart}
                     >×</CloseButton>
-                    <Supreme>{pluraliseName(me.name)} Cart</Supreme>
+                    <Supreme>{apostrophiseName(me.name)} Cart</Supreme>
                     <p>You have {me.cart.length} item{me.cart.length === 1 ? '': 's'} in your cart.</p>
                   </header>
 

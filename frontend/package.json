@@ -18,7 +18,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-styled-components": "^1.8.0",
     "date-fns": "^2.0.0-alpha.25",
-    "downshift": "^2.2.3",
+    "downshift": "^3.1.5",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "graphql": "^14.0.2",
@@ -34,7 +34,7 @@
     "react-dom": "^16.6.3",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
-    "styled-components": "^3.4.10",
+    "styled-components": "^4.1.1",
     "waait": "^1.0.2"
   },
   "devDependencies": {

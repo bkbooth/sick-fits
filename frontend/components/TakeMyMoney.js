@@ -28,9 +28,12 @@ function totalItems(cart) {
 }
 
 class TakeMyMoney extends React.Component {
-  onToken(res, createOrder) {
+  onToken = async (res, createOrder) => {
     console.log('Got Stripe token:', res.id)
-    createOrder({ variables: { token: res.id } }).catch(err => alert(err.message))
+    const order = await createOrder({
+      variables: { token: res.id },
+    }).catch(err => alert(err.message))
+    console.log(order)
   }
 
   render() {
@@ -45,7 +48,7 @@ class TakeMyMoney extends React.Component {
               amount={calcTotalPrice(me.cart)}
               name="Sick Fits!"
               description={`Order of ${totalItems(me.cart)} items.`}
-              image={me.cart[0].item && me.cart[0].item.image}
+              image={me.cart.length ? me.cart[0].item && me.cart[0].item.image : null}
               stripeKey="pk_test_nmnQGOikwUBoSjWEFR2tvQdR"
               currency="AUD"
               email={me.email}

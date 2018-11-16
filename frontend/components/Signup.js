@@ -33,11 +33,15 @@ class Signup extends Component {
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
       {(signup, { error, loading }) => (
-        <Form method="post" onSubmit={async e => {
-          e.preventDefault()
-          await signup()
-          this.setState({ email: '', name: '', password: '' })
-        }}>
+        <Form
+          method="post"
+          onSubmit={async e => {
+            e.preventDefault()
+            await signup()
+            this.setState({ email: '', name: '', password: '' })
+          }}
+          data-test="form"
+        >
           <fieldset disabled={loading} aria-busy={loading}>
             <h2>Sign up for an Account</h2>
             <Error error={error} />

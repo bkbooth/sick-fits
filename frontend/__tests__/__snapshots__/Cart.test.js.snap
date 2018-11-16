@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cart /> renders and matches snapshot 1`] = `
+<header>
+  <CloseButton
+    onClick={[Function]}
+    title="close"
+  >
+    <StyledComponent
+      forwardedClass={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "CloseButton-sc-1seb878-0",
+            "isStatic": true,
+            "lastClassName": "lbNKfp",
+            "rules": Array [
+              "background:black;color:white;font-size:3rem;border:0;position:absolute;z-index:2;right:0;",
+            ],
+          },
+          "displayName": "CloseButton",
+          "render": [Function],
+          "styledComponentId": "CloseButton-sc-1seb878-0",
+          "target": "button",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      onClick={[Function]}
+      title="close"
+    >
+      <button
+        className="CloseButton-sc-1seb878-0 lbNKfp"
+        onClick={[Function]}
+        title="close"
+      >
+        ×
+      </button>
+    </StyledComponent>
+  </CloseButton>
+  <Supreme>
+    <StyledComponent
+      forwardedClass={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Supreme-xv30qb-0",
+            "isStatic": false,
+            "lastClassName": "hpaXsq",
+            "rules": Array [
+              "background:",
+              [Function],
+              ";color:white;display:inline-block;padding:4px 5px;transform:skew(-3deg);margin:0;font-size:4rem;",
+            ],
+          },
+          "displayName": "Supreme",
+          "render": [Function],
+          "styledComponentId": "Supreme-xv30qb-0",
+          "target": "h3",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <h3
+        className="Supreme-xv30qb-0 hpaXsq"
+      >
+        Miss Coleman Berge's
+         Cart
+      </h3>
+    </StyledComponent>
+  </Supreme>
+  <p>
+    You have 
+    1
+     item
+     in your cart.
+  </p>
+</header>
+`;

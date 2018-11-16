@@ -42,7 +42,6 @@ class CreateItem extends Component {
   }
 
   uploadFile = async e => {
-    console.log('Uploading file...')
     const files = e.target.files
     const data = new FormData()
     data.append('file', files[0])
@@ -64,17 +63,20 @@ class CreateItem extends Component {
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
-          <Form onSubmit={async e => {
-            // Stop the form from submitting
-            e.preventDefault()
-            // Call the mutation
-            const res = await createItem()
-            // Redirect user to the single item page
-            Router.push({
-              pathname: '/item',
-              query: { id: res.data.createItem.id },
-            })
-          }}>
+          <Form
+              onSubmit={async e => {
+              // Stop the form from submitting
+              e.preventDefault()
+              // Call the mutation
+              const res = await createItem()
+              // Redirect user to the single item page
+              Router.push({
+                pathname: '/item',
+                query: { id: res.data.createItem.id },
+              })
+            }}
+            data-test="form"
+          >
             <Error error={error} />
 
             <fieldset disabled={loading} aria-busy={loading}>

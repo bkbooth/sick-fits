@@ -5,6 +5,14 @@
   "author": "Ben Booth <bkbooth@gmail.com> (https://benbooth.dev)",
   "license": "MIT",
   "private": true,
-  "scripts": {},
-  "dependencies": {}
+  "scripts": {
+    "dev": "next -p 7777",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.0.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
 }

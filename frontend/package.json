@@ -1,0 +1,10 @@
+{
+  "name": "sick-fits-frontend",
+  "version": "2.0.0",
+  "description": "An online clothing store built with React and GraphQL",
+  "author": "Ben Booth <bkbooth@gmail.com> (https://benbooth.dev)",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "dependencies": {}
+}

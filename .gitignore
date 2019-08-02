@@ -1,0 +1,26 @@
+# build output
+dist
+.next
+
+# dependencies
+node_modules
+package-lock.json
+
+# logs & pids
+*.log
+pids
+
+# coverage
+.nyc_output
+coverage
+
+# test output
+test/**/out*
+test/**/next-env.d.ts
+.DS_Store
+
+# Editors
+**/.idea
+
+# example output
+examples/**/out

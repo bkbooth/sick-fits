@@ -24,3 +24,6 @@ test/**/next-env.d.ts
 
 # example output
 examples/**/out
+
+# env
+variables.env

@@ -1,6 +1,7 @@
 type User {
   id: ID! @id
   name: String!
+  email: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

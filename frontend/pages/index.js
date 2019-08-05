@@ -1,7 +1,9 @@
-const Home = () => (
+import Items from '../components/Items';
+
+const HomePage = () => (
   <div>
-    <p>Hey!</p>
+    <Items />
   </div>
 );
 
-export default Home;
+export default HomePage;

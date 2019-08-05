@@ -10,7 +10,14 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "graphql": "^0.13.2",
     "graphql-cli": "^3.0.12",
-    "prisma": "1.32.0-beta"
+    "prisma": "^1.34.3"
+  },
+  "resolutions": {
+    "cucumber-html-reporter": "^5.0.0",
+    "diff": "^4.0.1",
+    "marked": "^0.6.1",
+    "npm-run": "^5.0.1"
   }
 }

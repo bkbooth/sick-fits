@@ -1,7 +1,6 @@
 const Query = {
-  dogs(parent, args, ctx, info) {
-    global.dogs = global.dogs || [];
-    return global.dogs;
+  items(_parent, _args, ctx, _info) {
+    return ctx.db.query.items();
   },
 };
 

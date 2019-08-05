@@ -26,11 +26,26 @@ export const CREATE_ITEM_MUTATION = gql`
 `;
 
 const CreateItem = () => {
-  const [title, setTitle] = useState('Cooler shoes');
-  const [description, setDescription] = useState('I love these cooler shoes!');
-  const [price, setPrice] = useState(21000);
-  const [image] = useState('shoe.jpg');
-  const [largeImage] = useState('yugeshoe.jpg');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState('');
+  const [largeImage, setLargeImage] = useState('');
+
+  async function uploadFile(event) {
+    const { files } = event.currentTarget;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'sick-fits');
+
+    const res = await fetch('https://api.cloudinary.com/v1_1/bkbooth/image/upload', {
+      method: 'POST',
+      body: data,
+    });
+    const file = await res.json();
+    setImage(file.secure_url);
+    setLargeImage(file.eager[0].secure_url);
+  }
 
   function createChangeHandler(setter) {
     return event => {
@@ -57,6 +72,19 @@ const CreateItem = () => {
           <Error error={error} />
 
           <fieldset disabled={loading} aria-busy={loading}>
+            <label htmlFor="file">
+              Image
+              <input
+                type="file"
+                name="file"
+                id="file"
+                placeholder="Upload an image"
+                onChange={uploadFile}
+                required
+              />
+              {image && <img src={image} width="200" alt="Uploaded image preview" />}
+            </label>
+
             <label htmlFor="title">
               Title
               <input

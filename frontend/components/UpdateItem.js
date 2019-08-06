@@ -61,7 +61,7 @@ const UpdateItem = ({ itemId }) => {
             mutation={UPDATE_ITEM_MUTATION}
             variables={{ itemId, title, description, price }}
           >
-            {(updateItem, { loading, error }) => (
+            {(updateItem, { error, loading }) => (
               <Form onSubmit={createSubmissionHandler(updateItem)}>
                 <Error error={error} />
 

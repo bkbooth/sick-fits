@@ -67,7 +67,7 @@ const CreateItem = () => {
       mutation={CREATE_ITEM_MUTATION}
       variables={{ title, description, price, image, largeImage }}
     >
-      {(createItem, { loading, error }) => (
+      {(createItem, { error, loading }) => (
         <Form onSubmit={createSubmissionHandler(createItem)}>
           <Error error={error} />
 
@@ -123,7 +123,7 @@ const CreateItem = () => {
               />
             </label>
 
-            <button type="submit">Submit</button>
+            <button type="submit">Sav{loading ? 'ing' : 'e'} item</button>
           </fieldset>
         </Form>
       )}

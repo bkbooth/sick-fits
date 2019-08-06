@@ -1,4 +1,4 @@
-import CreateItem from '../components/CreateItem';
+import CreateItem from 'components/CreateItem';
 
 const SellPage = () => (
   <div>

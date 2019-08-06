@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import gql from 'graphql-tag';
-import Error from './ErrorMessage';
-import Form from './styles/Form';
+import Error from 'components/ErrorMessage';
+import Form from 'components/styles/Form';
 
 export const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM(

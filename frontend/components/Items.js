@@ -2,8 +2,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
-import Error from './ErrorMessage';
-import Item from './Item';
+import Error from 'components/ErrorMessage';
+import Item from 'components/Item';
 
 export const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS {

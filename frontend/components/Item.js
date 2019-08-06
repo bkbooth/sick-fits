@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import formatMoney from '../lib/formatMoney';
-import ItemStyles from './styles/ItemStyles';
-import PriceTag from './styles/PriceTag';
-import Title from './styles/Title';
+import formatMoney from 'lib/formatMoney';
+import ItemStyles from 'components/styles/ItemStyles';
+import PriceTag from 'components/styles/PriceTag';
+import Title from 'components/styles/Title';
 
 const Item = ({ item }) => (
   <ItemStyles>

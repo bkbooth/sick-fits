@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import UpdateItem from 'components/UpdateItem';
 
 const UpdateItemPage = () => {
   const {
@@ -7,7 +8,7 @@ const UpdateItemPage = () => {
 
   return (
     <div>
-      <p>Update item {itemId}!</p>
+      <UpdateItem itemId={itemId} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import formatMoney from 'lib/formatMoney';
+import DeleteItem from 'components/DeleteItem';
 import ItemStyles from 'components/styles/ItemStyles';
 import PriceTag from 'components/styles/PriceTag';
 import Title from 'components/styles/Title';
@@ -23,7 +24,7 @@ const Item = ({ item }) => (
         <a>✏️ Edit</a>
       </Link>
       <button>Add to cart</button>
-      <button>Delete</button>
+      <DeleteItem itemId={item.id}>Delete</DeleteItem>
     </div>
   </ItemStyles>
 );

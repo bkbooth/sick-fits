@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// 1 year cookie
+const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 365;
+
 const Mutation = {
   async signup(_parent, args, ctx, info) {
     const data = {
@@ -12,7 +15,19 @@ const Mutation = {
     const user = await ctx.db.mutation.createUser({ data }, info);
 
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-    ctx.response.cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 });
+    ctx.response.cookie('token', token, { httpOnly: true, maxAge: COOKIE_MAX_AGE });
+
+    return user;
+  },
+  async signin(_parent, { email, password }, ctx, _info) {
+    const user = await ctx.db.query.user({ where: { email } });
+    if (!user) throw new Error(`No user found for email '${email}'`);
+
+    const valid = await bcrypt.compare(password, user.passwordHash);
+    if (!valid) throw new Error('Invalid password');
+
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    ctx.response.cookie('token', token, { httpOnly: true, maxAge: COOKIE_MAX_AGE });
 
     return user;
   },

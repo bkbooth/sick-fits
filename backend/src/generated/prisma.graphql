@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ben-booth/sick-fits/dev
-# timestamp: Mon Aug 05 2019 11:31:51 GMT+1000 (GMT+10:00)
+# timestamp: Tue Aug 06 2019 16:57:02 GMT+1000 (GMT+10:00)
 
 type AggregateItem {
   count: Int!
@@ -469,6 +469,15 @@ type PageInfo {
   endCursor: String
 }
 
+enum Permission {
+  ADMIN
+  USER
+  ITEM_CREATE
+  ITEM_UPDATE
+  ITEM_DELETE
+  PERMISSION_UPDATE
+}
+
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
@@ -493,6 +502,8 @@ type User implements Node {
   id: ID!
   name: String!
   email: String!
+  passwordHash: String!
+  permissions: [Permission!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -511,6 +522,12 @@ input UserCreateInput {
   id: ID
   name: String!
   email: String!
+  passwordHash: String!
+  permissions: UserCreatepermissionsInput
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission!]
 }
 
 """An edge in a connection."""
@@ -529,6 +546,8 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  passwordHash_ASC
+  passwordHash_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -539,6 +558,8 @@ type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  passwordHash: String!
+  permissions: [Permission!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -585,11 +606,19 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
+  passwordHash: String
+  permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
+  passwordHash: String
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdatepermissionsInput {
+  set: [Permission!]
 }
 
 input UserWhereInput {
@@ -721,6 +750,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  passwordHash: String
+
+  """All values that are not equal to given value."""
+  passwordHash_not: String
+
+  """All values that are contained in given list."""
+  passwordHash_in: [String!]
+
+  """All values that are not contained in given list."""
+  passwordHash_not_in: [String!]
+
+  """All values less than the given value."""
+  passwordHash_lt: String
+
+  """All values less than or equal the given value."""
+  passwordHash_lte: String
+
+  """All values greater than the given value."""
+  passwordHash_gt: String
+
+  """All values greater than or equal the given value."""
+  passwordHash_gte: String
+
+  """All values containing the given string."""
+  passwordHash_contains: String
+
+  """All values not containing the given string."""
+  passwordHash_not_contains: String
+
+  """All values starting with the given string."""
+  passwordHash_starts_with: String
+
+  """All values not starting with the given string."""
+  passwordHash_not_starts_with: String
+
+  """All values ending with the given string."""
+  passwordHash_ends_with: String
+
+  """All values not ending with the given string."""
+  passwordHash_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -769,4 +838,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }

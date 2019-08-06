@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Error from 'components/ErrorMessage';
+import { CURRENT_USER_QUERY } from 'components/User';
 import Form from 'components/styles/Form';
 
 export const SIGNUP_MUTATION = gql`
@@ -35,7 +36,11 @@ const Signup = () => {
   }
 
   return (
-    <Mutation mutation={SIGNUP_MUTATION} variables={{ name, email, password }}>
+    <Mutation
+      mutation={SIGNUP_MUTATION}
+      variables={{ name, email, password }}
+      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+    >
       {(signup, { error, loading }) => (
         <Form onSubmit={createSubmissionHandler(signup)} method="post">
           <fieldset disabled={loading} aria-busy={loading}>

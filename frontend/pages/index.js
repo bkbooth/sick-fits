@@ -2,13 +2,12 @@ import { useRouter } from 'next/router';
 import Items from 'components/Items';
 
 const HomePage = () => {
-  const {
-    query: { page },
-  } = useRouter();
+  const router = useRouter();
+  if (!router) return null;
 
   return (
     <div>
-      <Items page={parseFloat(page) || 1} />
+      <Items page={parseFloat(router.query.page) || 1} />
     </div>
   );
 };

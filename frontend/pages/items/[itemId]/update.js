@@ -2,13 +2,12 @@ import { useRouter } from 'next/router';
 import UpdateItem from 'components/UpdateItem';
 
 const UpdateItemPage = () => {
-  const {
-    query: { itemId },
-  } = useRouter();
+  const router = useRouter();
+  if (!router) return null;
 
   return (
     <div>
-      <UpdateItem itemId={itemId} />
+      <UpdateItem itemId={router.query.itemId} />
     </div>
   );
 };

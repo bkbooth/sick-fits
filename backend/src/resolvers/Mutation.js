@@ -31,6 +31,10 @@ const Mutation = {
 
     return user;
   },
+  async signout(_parent, _args, ctx, _info) {
+    ctx.response.clearCookie('token');
+    return { message: 'Signed out' };
+  },
 
   createItem(_parent, args, ctx, info) {
     // TODO: check if user is logged in

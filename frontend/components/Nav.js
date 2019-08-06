@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Signout from 'components/Signout';
 import User from 'components/User';
 import NavStyles from 'components/styles/NavStyles';
 
@@ -21,6 +22,7 @@ const Nav = () => (
             <Link href="/me">
               <a>Account</a>
             </Link>
+            <Signout />
           </>
         ) : (
           <Link href="/signup">

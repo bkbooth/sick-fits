@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import gql from 'graphql-tag';
 import Error from 'components/ErrorMessage';
 import Item from 'components/Item';
+import Pagination from 'components/Pagination';
+import { ITEMS_PER_PAGE } from '../config';
 
 export const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS {
-    items {
+  query ALL_ITEMS($skip: Int = 0, $first: Int = ${ITEMS_PER_PAGE}) {
+    items(orderBy: createdAt_DESC, skip: $skip, first: $first) {
       id
       title
       description
@@ -30,9 +32,10 @@ const ItemsList = styled.div`
   margin: 0 auto;
 `;
 
-const Items = () => (
+const Items = ({ page }) => (
   <Center>
-    <Query query={ALL_ITEMS_QUERY}>
+    <Pagination page={page} />
+    <Query query={ALL_ITEMS_QUERY} variables={{ skip: page * ITEMS_PER_PAGE - ITEMS_PER_PAGE }}>
       {({ data, error, loading }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <Error error={error} />;
@@ -45,6 +48,7 @@ const Items = () => (
         );
       }}
     </Query>
+    <Pagination page={page} />
   </Center>
 );
 

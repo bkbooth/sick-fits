@@ -3,6 +3,7 @@ const { randomBytes } = require('crypto');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const { makeANiceEmail, transport } = require('../mail');
+const { checkPermissions } = require('../utils');
 
 // 1 year cookie
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 365;
@@ -82,6 +83,17 @@ const Mutation = {
     ctx.response.cookie('token', token, { httpOnly: true, maxAge: COOKIE_MAX_AGE });
 
     return updatedUser;
+  },
+  updatePermissions(_parent, { permissions, userId }, ctx, info) {
+    if (!ctx.request.userId) throw new Error('You need to be logged in to update permissions');
+    checkPermissions(ctx.request.user, ['ADMIN', 'PERMISSION_UPDATE']);
+    return ctx.db.mutation.updateUser(
+      {
+        where: { id: userId },
+        data: { permissions: { set: permissions } },
+      },
+      info
+    );
   },
 
   createItem(_parent, args, ctx, info) {

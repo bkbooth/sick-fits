@@ -10,6 +10,7 @@ type Mutation {
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
   resetPassword(resetToken: String!, password: String!): User!
+  updatePermissions(userId: ID!, permissions: [Permission]!): User!
 
   createItem(
     title: String!

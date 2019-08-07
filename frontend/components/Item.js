@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import formatMoney from 'lib/formatMoney';
+import AddToCart from 'components/AddToCart';
 import DeleteItem from 'components/DeleteItem';
 import ItemStyles from 'components/styles/ItemStyles';
 import PriceTag from 'components/styles/PriceTag';
@@ -23,8 +24,8 @@ const Item = ({ item }) => (
       <Link href="/items/[itemId]/update" as={`/items/${item.id}/update`}>
         <a>✏️ Edit</a>
       </Link>
-      <button>Add to cart</button>
-      <DeleteItem itemId={item.id}>Delete</DeleteItem>
+      <AddToCart itemId={item.id}>🛒 Add to cart</AddToCart>
+      <DeleteItem itemId={item.id}>🗑️ Delete</DeleteItem>
     </div>
   </ItemStyles>
 );

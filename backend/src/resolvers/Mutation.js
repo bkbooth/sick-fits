@@ -127,6 +127,38 @@ const Mutation = {
 
     return ctx.db.mutation.deleteItem({ where }, info);
   },
+
+  async addToCart(_parent, { itemId }, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) throw new Error('You need to be logged in to add items to your cart');
+
+    const [existingCartItem] = await ctx.db.query.cartItems({
+      where: {
+        user: { id: userId },
+        item: { id: itemId },
+      },
+    });
+
+    if (existingCartItem) {
+      return ctx.db.mutation.updateCartItem(
+        {
+          where: { id: existingCartItem.id },
+          data: { quantity: existingCartItem.quantity + 1 },
+        },
+        info
+      );
+    } else {
+      return ctx.db.mutation.createCartItem(
+        {
+          data: {
+            user: { connect: { id: userId } },
+            item: { connect: { id: itemId } },
+          },
+        },
+        info
+      );
+    }
+  },
 };
 
 module.exports = Mutation;

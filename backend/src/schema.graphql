@@ -21,6 +21,8 @@ type Mutation {
   ): Item!
   updateItem(id: ID!, title: String, description: String, price: Int): Item!
   deleteItem(id: ID!): Item!
+
+  addToCart(itemId: ID!): CartItem!
 }
 
 type Query {
@@ -37,4 +39,5 @@ type User {
   name: String!
   email: String!
   permissions: [Permission!]!
+  cart: [CartItem]!
 }

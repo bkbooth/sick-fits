@@ -5,11 +5,7 @@ const HomePage = () => {
   const router = useRouter();
   if (!router) return null;
 
-  return (
-    <div>
-      <Items page={parseFloat(router.query.page) || 1} />
-    </div>
-  );
+  return <Items page={parseFloat(router.query.page) || 1} />;
 };
 
 export default HomePage;

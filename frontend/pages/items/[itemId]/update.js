@@ -5,11 +5,7 @@ const UpdateItemPage = () => {
   const router = useRouter();
   if (!router) return null;
 
-  return (
-    <div>
-      <UpdateItem itemId={router.query.itemId} />
-    </div>
-  );
+  return <UpdateItem itemId={router.query.itemId} />;
 };
 
 export default UpdateItemPage;

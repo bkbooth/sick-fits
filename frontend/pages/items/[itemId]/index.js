@@ -5,11 +5,7 @@ const ItemPage = () => {
   const router = useRouter();
   if (!router) return null;
 
-  return (
-    <div>
-      <SingleItem itemId={router.query.itemId} />
-    </div>
-  );
+  return <SingleItem itemId={router.query.itemId} />;
 };
 
 export default ItemPage;

@@ -5,11 +5,7 @@ const ResetPage = () => {
   const router = useRouter();
   if (!router) return null;
 
-  return (
-    <div>
-      <Reset resetToken={router.query.resetToken} />
-    </div>
-  );
+  return <Reset resetToken={router.query.resetToken} />;
 };
 
 export default ResetPage;

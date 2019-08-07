@@ -24,6 +24,7 @@ type Mutation {
 
 type Query {
   me: User
+  users: [User]!
 
   item(where: ItemWhereUniqueInput!): Item
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!

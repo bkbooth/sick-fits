@@ -13,6 +13,8 @@ type User {
   email: String! @unique
   passwordHash: String!
   permissions: [Permission!]! @scalarList(strategy: RELATION)
+  resetToken: String
+  resetTokenExpiry: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ben-booth/sick-fits/dev
-# timestamp: Tue Aug 06 2019 16:57:02 GMT+1000 (GMT+10:00)
+# timestamp: Wed Aug 07 2019 11:06:05 GMT+1000 (GMT+10:00)
 
 type AggregateItem {
   count: Int!
@@ -504,6 +504,8 @@ type User implements Node {
   email: String!
   passwordHash: String!
   permissions: [Permission!]!
+  resetToken: String
+  resetTokenExpiry: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -523,6 +525,8 @@ input UserCreateInput {
   name: String!
   email: String!
   passwordHash: String!
+  resetToken: String
+  resetTokenExpiry: String
   permissions: UserCreatepermissionsInput
 }
 
@@ -548,6 +552,10 @@ enum UserOrderByInput {
   email_DESC
   passwordHash_ASC
   passwordHash_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiry_ASC
+  resetTokenExpiry_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -560,6 +568,8 @@ type UserPreviousValues {
   email: String!
   passwordHash: String!
   permissions: [Permission!]!
+  resetToken: String
+  resetTokenExpiry: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -607,6 +617,8 @@ input UserUpdateInput {
   name: String
   email: String
   passwordHash: String
+  resetToken: String
+  resetTokenExpiry: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -614,6 +626,8 @@ input UserUpdateManyMutationInput {
   name: String
   email: String
   passwordHash: String
+  resetToken: String
+  resetTokenExpiry: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -790,6 +804,86 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   passwordHash_not_ends_with: String
+  resetToken: String
+
+  """All values that are not equal to given value."""
+  resetToken_not: String
+
+  """All values that are contained in given list."""
+  resetToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  resetToken_not_in: [String!]
+
+  """All values less than the given value."""
+  resetToken_lt: String
+
+  """All values less than or equal the given value."""
+  resetToken_lte: String
+
+  """All values greater than the given value."""
+  resetToken_gt: String
+
+  """All values greater than or equal the given value."""
+  resetToken_gte: String
+
+  """All values containing the given string."""
+  resetToken_contains: String
+
+  """All values not containing the given string."""
+  resetToken_not_contains: String
+
+  """All values starting with the given string."""
+  resetToken_starts_with: String
+
+  """All values not starting with the given string."""
+  resetToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  resetToken_ends_with: String
+
+  """All values not ending with the given string."""
+  resetToken_not_ends_with: String
+  resetTokenExpiry: String
+
+  """All values that are not equal to given value."""
+  resetTokenExpiry_not: String
+
+  """All values that are contained in given list."""
+  resetTokenExpiry_in: [String!]
+
+  """All values that are not contained in given list."""
+  resetTokenExpiry_not_in: [String!]
+
+  """All values less than the given value."""
+  resetTokenExpiry_lt: String
+
+  """All values less than or equal the given value."""
+  resetTokenExpiry_lte: String
+
+  """All values greater than the given value."""
+  resetTokenExpiry_gt: String
+
+  """All values greater than or equal the given value."""
+  resetTokenExpiry_gte: String
+
+  """All values containing the given string."""
+  resetTokenExpiry_contains: String
+
+  """All values not containing the given string."""
+  resetTokenExpiry_not_contains: String
+
+  """All values starting with the given string."""
+  resetTokenExpiry_starts_with: String
+
+  """All values not starting with the given string."""
+  resetTokenExpiry_not_starts_with: String
+
+  """All values ending with the given string."""
+  resetTokenExpiry_ends_with: String
+
+  """All values not ending with the given string."""
+  resetTokenExpiry_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""

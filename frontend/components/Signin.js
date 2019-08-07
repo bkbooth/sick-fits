@@ -16,7 +16,7 @@ export const SIGNIN_MUTATION = gql`
   }
 `;
 
-const Signin = () => {
+const Signin = ({ redirect = true }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,7 +28,9 @@ const Signin = () => {
     return async event => {
       event.preventDefault();
       await mutation();
-      Router.push('/');
+      setEmail('');
+      setPassword('');
+      redirect && Router.push('/');
     };
   }
 
@@ -41,7 +43,7 @@ const Signin = () => {
       {(signin, { error, loading }) => (
         <Form onSubmit={createSubmissionHandler(signin)} method="post">
           <fieldset disabled={loading} aria-busy={loading}>
-            <h2>Signin to your account</h2>
+            <h2>Sign in to your account</h2>
 
             <Error error={error} />
 
@@ -71,7 +73,7 @@ const Signin = () => {
               />
             </label>
 
-            <button type="submit">Sign{loading ? 'ing ' : ''}in</button>
+            <button type="submit">Sign{loading ? 'ing ' : ''} in</button>
           </fieldset>
         </Form>
       )}

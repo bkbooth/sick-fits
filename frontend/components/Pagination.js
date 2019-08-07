@@ -18,9 +18,9 @@ export const PAGINATION_QUERY = gql`
 
 const Pagination = ({ page }) => (
   <Query query={PAGINATION_QUERY}>
-    {({ data: { itemsConnection }, loading }) => {
+    {({ data, loading }) => {
       if (loading) return null;
-      const { count } = itemsConnection.aggregate;
+      const { count } = data.itemsConnection.aggregate;
       const pages = Math.ceil(count / ITEMS_PER_PAGE);
       return (
         <PaginationStyles>

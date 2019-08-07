@@ -37,19 +37,19 @@ const SingleItemStyles = styled.div`
 
 const SingleItem = ({ itemId }) => (
   <Query query={SINGLE_ITEM_QUERY} variables={{ itemId }}>
-    {({ data: { item }, error, loading }) => {
+    {({ data, error, loading }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <Error error={error} />;
-      if (!item) return <p>No Item found for ID '{itemId}'</p>;
+      if (!data.item) return <p>No Item found for ID '{itemId}'</p>;
       return (
         <SingleItemStyles>
           <Head>
-            <title>{item.title} | Sick Fits!</title>
+            <title>{data.item.title} | Sick Fits!</title>
           </Head>
-          <img src={item.largeImage} alt={item.title} />
+          <img src={data.item.largeImage} alt={data.item.title} />
           <div className="details">
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
+            <h2>{data.item.title}</h2>
+            <p>{data.item.description}</p>
           </div>
         </SingleItemStyles>
       );

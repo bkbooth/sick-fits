@@ -6,12 +6,12 @@ import NavStyles from 'components/styles/NavStyles';
 
 const Nav = () => (
   <User>
-    {({ data: { me } }) => (
+    {({ data }) => (
       <NavStyles>
         <Link href="/items">
           <a>Shop</a>
         </Link>
-        {me ? (
+        {data.me ? (
           <>
             <Link href="/sell">
               <a>Sell</a>

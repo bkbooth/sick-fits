@@ -5,9 +5,9 @@ import { CURRENT_USER_QUERY } from 'components/User';
 
 const PleaseSignin = ({ children }) => (
   <Query query={CURRENT_USER_QUERY}>
-    {({ data: { me }, loading }) => {
+    {({ data, loading }) => {
       if (loading) return <p>Loading...</p>;
-      if (!me)
+      if (!data.me)
         return (
           <>
             <p>Please sign in before continuing</p>

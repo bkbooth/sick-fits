@@ -53,9 +53,9 @@ const UpdateItem = ({ itemId }) => {
 
   return (
     <Query query={SINGLE_ITEM_QUERY} variables={{ itemId }}>
-      {({ data: { item }, loading }) => {
+      {({ data, loading }) => {
         if (loading) return <p>Loading...</p>;
-        if (!item) return <p>No Item found for ID '{itemId}'</p>;
+        if (!data.item) return <p>No Item found for ID '{itemId}'</p>;
         return (
           <Mutation
             mutation={UPDATE_ITEM_MUTATION}
@@ -74,7 +74,7 @@ const UpdateItem = ({ itemId }) => {
                       id="title"
                       placeholder="Title"
                       value={title}
-                      defaultValue={item.title}
+                      defaultValue={data.item.title}
                       onChange={createChangeHandler(setTitle)}
                       required
                     />
@@ -88,7 +88,7 @@ const UpdateItem = ({ itemId }) => {
                       id="price"
                       placeholder="Price"
                       value={price}
-                      defaultValue={item.price}
+                      defaultValue={data.item.price}
                       onChange={createChangeHandler(setPrice)}
                       required
                     />
@@ -101,7 +101,7 @@ const UpdateItem = ({ itemId }) => {
                       id="description"
                       placeholder="Enter a description"
                       value={description}
-                      defaultValue={item.description}
+                      defaultValue={data.item.description}
                       onChange={createChangeHandler(setDescription)}
                       required
                     />

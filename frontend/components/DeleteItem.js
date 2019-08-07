@@ -13,7 +13,9 @@ export const DELETE_ITEM_MUTATION = gql`
 
 const DeleteItem = ({ children, itemId }) => {
   function createDeleteHandler(mutation) {
-    return () => confirm('Are you sure you want to delete this item?') && mutation();
+    return () =>
+      confirm('Are you sure you want to delete this item?') &&
+      mutation().catch(error => alert(error.message));
   }
 
   function cacheUpdate(cache, payload) {

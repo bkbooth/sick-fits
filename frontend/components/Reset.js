@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Error from 'components/ErrorMessage';
 import { CURRENT_USER_QUERY } from 'components/User';
@@ -36,9 +37,7 @@ const Reset = ({ resetToken }) => {
       setErrorMessage('');
 
       await mutation();
-
-      setPassword('');
-      setConfirmPassword('');
+      Router.push('/');
     };
   }
 

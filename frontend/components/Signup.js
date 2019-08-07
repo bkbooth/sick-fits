@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import Error from 'components/ErrorMessage';
 import { CURRENT_USER_QUERY } from 'components/User';
 import Form from 'components/styles/Form';
@@ -28,10 +29,7 @@ const Signup = () => {
     return async event => {
       event.preventDefault();
       await mutation();
-
-      setName('');
-      setEmail('');
-      setPassword('');
+      Router.push('/');
     };
   }
 

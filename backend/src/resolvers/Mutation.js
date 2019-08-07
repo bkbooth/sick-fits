@@ -85,9 +85,18 @@ const Mutation = {
   },
 
   createItem(_parent, args, ctx, info) {
-    // TODO: check if user is logged in
+    if (!ctx.request.userId) throw new Error('You need to be logged in to create items');
 
-    return ctx.db.mutation.createItem({ data: { ...args } }, info);
+    return ctx.db.mutation.createItem(
+      {
+        data: {
+          // Connect user to item
+          user: { connect: { id: ctx.request.userId } },
+          ...args,
+        },
+      },
+      info
+    );
   },
   updateItem(_parent, args, ctx, info) {
     const { id, ...data } = args;

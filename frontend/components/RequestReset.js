@@ -23,7 +23,6 @@ const RequestReset = () => {
     return async event => {
       event.preventDefault();
       await mutation();
-
       setEmail('');
     };
   }

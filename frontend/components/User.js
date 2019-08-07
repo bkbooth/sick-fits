@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 export const CURRENT_USER_QUERY = gql`
   query CURRENT_USER {

@@ -1,8 +1,8 @@
 import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Head from 'next/head';
+import Link from 'next/link';
 import PaginationStyles from 'components/styles/PaginationStyles';
 import { ITEMS_PER_PAGE } from '../config';
 

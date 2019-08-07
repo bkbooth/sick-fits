@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 import Error from 'components/ErrorMessage';
 import { CURRENT_USER_QUERY } from 'components/User';
 import Form from 'components/styles/Form';
@@ -28,6 +28,7 @@ const Reset = ({ resetToken }) => {
   function createSubmissionHandler(mutation) {
     return async event => {
       event.preventDefault();
+
       if (password !== confirmPassword) {
         setErrorMessage('Password and confirm password must be the same');
         return;

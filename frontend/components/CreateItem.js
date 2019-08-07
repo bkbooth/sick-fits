@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
-import Router from 'next/router';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import Error from 'components/ErrorMessage';
 import Form from 'components/styles/Form';
 

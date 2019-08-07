@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import styled from 'styled-components';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import Error from 'components/ErrorMessage';
 import Item from 'components/Item';
 import Pagination from 'components/Pagination';

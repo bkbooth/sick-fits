@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
+const { makeANiceEmail, transport } = require('../mail');
 
 // 1 year cookie
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 365;
@@ -46,6 +47,21 @@ const Mutation = {
     await ctx.db.mutation.updateUser({
       where: { email },
       data: { resetToken, resetTokenExpiry },
+    });
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}`;
+    await transport.sendMail({
+      from: 'hello@sickfits.com',
+      to: user.email,
+      subject: 'Password Reset Request',
+      html: makeANiceEmail(`
+        Someone (probably you) requested a password reset for your Sick Fits account.
+        Click or copy the following link to set a new password:
+        <br />
+        <a href="${resetLink}">${resetLink}</a>
+        <br /><br />
+        If you did not request a password reset, you can safely ignore and discard this email.
+      `),
     });
 
     return { message: `Sent reset token to '${email}'` };

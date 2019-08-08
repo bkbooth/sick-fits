@@ -1,3 +1,10 @@
+/**
+ * Format a number as money, leaving off the fraction digits if they're not significant
+ *
+ * @param {number} amount
+ *
+ * @returns {string}
+ */
 export default function formatMoney(amount) {
   return new Intl.NumberFormat('en-AU', {
     style: 'currency',

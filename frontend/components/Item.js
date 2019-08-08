@@ -24,8 +24,8 @@ const Item = ({ item }) => (
       <Link href="/items/[itemId]/update" as={`/items/${item.id}/update`}>
         <a>✏️ Edit</a>
       </Link>
-      <AddToCart itemId={item.id}>🛒 Add to cart</AddToCart>
-      <DeleteItem itemId={item.id}>🗑️ Delete</DeleteItem>
+      <AddToCart itemId={item.id} />
+      <DeleteItem itemId={item.id} />
     </div>
   </ItemStyles>
 );

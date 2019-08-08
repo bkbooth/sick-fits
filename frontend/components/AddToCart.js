@@ -12,11 +12,11 @@ export const ADD_TO_CART_MUTATION = gql`
   }
 `;
 
-const AddToCart = ({ children, itemId }) => (
+const AddToCart = ({ itemId }) => (
   <Mutation mutation={ADD_TO_CART_MUTATION} variables={{ itemId }}>
     {(addToCart, { loading }) => (
       <button onClick={addToCart} disabled={loading}>
-        {children}
+        🛒 Add{loading ? 'ing' : ''} to cart
       </button>
     )}
   </Mutation>

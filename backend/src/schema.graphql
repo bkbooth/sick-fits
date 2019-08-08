@@ -24,6 +24,8 @@ type Mutation {
 
   addToCart(itemId: ID!): CartItem!
   removeFromCart(cartItemId: ID!): CartItem!
+
+  createOrder(token: String!): Order!
 }
 
 type Query {

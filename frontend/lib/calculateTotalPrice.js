@@ -2,7 +2,6 @@
  * Calculate the total price of a cart by summing cart items' price multiplied by quantity
  *
  * @param {CartItem[]} cart
- * @param
  *
  * @returns {number}
  */

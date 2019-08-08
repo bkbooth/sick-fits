@@ -6,6 +6,7 @@ import apostrophiseName from 'lib/apostrophiseName';
 import calculateTotalPrice from 'lib/calculateTotalPrice';
 import formatMoney from 'lib/formatMoney';
 import CartItem from 'components/CartItem';
+import TakeMyMoney from 'components/TakeMyMoney';
 import User from 'components/User';
 import CartStyles from 'components/styles/CartStyles';
 import CloseButton from 'components/styles/CloseButton';
@@ -55,7 +56,11 @@ const Cart = () => (
 
           <footer>
             <p>{formatMoney(calculateTotalPrice(me.cart))}</p>
-            <SickButton>Checkout</SickButton>
+            {me.cart.length > 0 && (
+              <TakeMyMoney>
+                <SickButton>Checkout</SickButton>
+              </TakeMyMoney>
+            )}
           </footer>
         </CartStyles>
       );

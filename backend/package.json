@@ -17,9 +17,11 @@
     "graphql": "^0.13.2",
     "graphql-yoga": "^1.18.1",
     "jsonwebtoken": "^8.5.1",
+    "lodash.pick": "^4.4.0",
     "nodemailer": "^6.3.0",
     "nodemon": "^1.19.1",
-    "prisma-binding": "^2.3.15"
+    "prisma-binding": "^2.3.15",
+    "stripe": "^7.6.0"
   },
   "devDependencies": {
     "graphql-cli": "^3.0.12",

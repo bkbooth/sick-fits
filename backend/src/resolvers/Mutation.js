@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const jwt = require('jsonwebtoken');
+const pick = require('lodash.pick');
 const { promisify } = require('util');
 const { makeANiceEmail, transport } = require('../mail');
+const stripe = require('../stripe');
 const { checkPermissions } = require('../utils');
 
 // 1 year cookie
@@ -168,6 +170,59 @@ const Mutation = {
       throw new Error('You can only remove items from your own cart');
 
     return ctx.db.mutation.deleteCartItem({ where }, info);
+  },
+
+  async createOrder(_parent, { token }, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) throw new Error('You need to be logged in to make an order');
+
+    const user = await ctx.db.query.user(
+      { where: { id: userId } },
+      `{
+        id
+        name
+        email
+        cart {
+          id
+          quantity
+          item { id title description price image }
+        }
+      }`
+    );
+
+    const totalItems = user.cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+    const amount = user.cart.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.item.price,
+      0
+    );
+    const charge = await stripe.charges.create({
+      amount,
+      currency: 'AUD',
+      description: `Sick Fits! Order of ${totalItems} items`,
+      source: token,
+    });
+
+    const orderItems = user.cart.map(({ quantity, item }) => ({
+      ...pick(item, ['title', 'description', 'price', 'image', 'largeImage']),
+      quantity,
+      user: { connect: { id: userId } },
+    }));
+    const order = await ctx.db.mutation.createOrder(
+      {
+        data: {
+          total: charge.amount,
+          charge: charge.id,
+          items: { create: orderItems },
+          user: { connect: { id: userId } },
+        },
+      },
+      info
+    );
+
+    const cartItemIds = user.cart.map(cartItem => cartItem.id);
+    await ctx.db.mutation.deleteManyCartItems({ where: { id_in: cartItemIds } });
+
+    return order;
   },
 };
 

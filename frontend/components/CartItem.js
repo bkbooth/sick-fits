@@ -19,22 +19,34 @@ const CartItemStyles = styled.li`
   }
 `;
 
-const CartItem = ({ cartItem: { id: cartItemId, item, quantity } }) => (
-  <CartItemStyles>
-    {item.image && <img src={item.image} alt={item.title} width="100" />}
-    <div className="cart-item-details">
-      <h3>{item.title}</h3>
-      <p>
-        {formatMoney(quantity * item.price)}
-        {' - '}
-        <em>
-          {quantity} × {formatMoney(item.price)} each
-        </em>
-      </p>
-    </div>
-    <RemoveFromCart cartItemId={cartItemId} />
-  </CartItemStyles>
-);
+const CartItem = ({ cartItem: { id: cartItemId, item, quantity } }) => {
+  return (
+    <CartItemStyles>
+      {item ? (
+        <>
+          <img src={item.image} alt={item.title} width="100" />
+          <div className="cart-item-details">
+            <h3>{item.title}</h3>
+            <p>
+              {formatMoney(quantity * item.price)}
+              {' - '}
+              <em>
+                {quantity} × {formatMoney(item.price)} each
+              </em>
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <p>This item has been deleted.</p>
+          {/* 👇 intentionally empty element to fill grid columns */}
+          <i />
+        </>
+      )}
+      <RemoveFromCart cartItemId={cartItemId} />
+    </CartItemStyles>
+  );
+};
 
 CartItem.propTypes = {
   cartItem: PropTypes.shape({
@@ -45,7 +57,7 @@ CartItem.propTypes = {
       title: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       image: PropTypes.string,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 

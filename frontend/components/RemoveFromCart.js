@@ -30,11 +30,22 @@ const RemoveFromCart = ({ cartItemId }) => {
     };
   }
 
+  function handleMutationUpdate(cache, payload) {
+    const { id: cartItemId } = payload.data.removeFromCart;
+    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+    data.me.cart = data.me.cart.filter(cartItem => cartItem.id !== cartItemId);
+    cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+  }
+
   return (
     <Mutation
       mutation={REMOVE_FROM_CART_MUTATION}
       variables={{ cartItemId }}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      update={handleMutationUpdate}
+      optimisticResponse={{
+        __typename: 'Mutation',
+        removeFromCart: { __typename: 'CartItem', id: cartItemId },
+      }}
     >
       {(removeFromCart, { loading }) => (
         <BigButton

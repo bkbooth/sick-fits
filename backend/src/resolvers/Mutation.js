@@ -159,6 +159,16 @@ const Mutation = {
       );
     }
   },
+  async removeFromCart(_parent, { cartItemId }, ctx, info) {
+    const where = { id: cartItemId };
+
+    const cartItem = await ctx.db.query.cartItem({ where }, '{ id, user { id } }');
+    if (!cartItem) throw new Error('Item does not exist in your cart');
+    if (cartItem.user.id !== ctx.request.userId)
+      throw new Error('You can only remove items from your own cart');
+
+    return ctx.db.mutation.deleteCartItem({ where }, info);
+  },
 };
 
 module.exports = Mutation;

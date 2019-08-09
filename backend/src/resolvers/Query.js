@@ -28,6 +28,15 @@ const Query = {
 
     return order;
   },
+  userOrders(_parent, _args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) throw new Error('You need to be logged in to view your orders');
+
+    return ctx.db.query.orders(
+      { where: { user: { id: userId } }, orderBy: 'createdAt_DESC' },
+      info
+    );
+  },
 };
 
 module.exports = Query;

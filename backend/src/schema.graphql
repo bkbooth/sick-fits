@@ -35,6 +35,8 @@ type Query {
   item(where: ItemWhereUniqueInput!): Item
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!
   itemsConnection(where: ItemWhereInput): ItemConnection!
+
+  order(id: ID!): Order
 }
 
 type User {

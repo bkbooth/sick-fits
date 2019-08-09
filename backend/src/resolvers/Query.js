@@ -15,6 +15,19 @@ const Query = {
   item: forwardTo('db'),
   items: forwardTo('db'),
   itemsConnection: forwardTo('db'),
+
+  async order(_parent, { id }, ctx, info) {
+    if (!ctx.request.userId) throw new Error('You need to be logged in to view your orders');
+
+    const order = await ctx.db.query.order({ where: { id } }, info);
+
+    const ownsOrder = order.user.id === ctx.request.userId;
+    const hasPermissionToSeeOrder = ctx.request.user.permissions.includes('ADMIN');
+    if (!(ownsOrder || hasPermissionToSeeOrder))
+      throw new Error('You do not have permission to view this order');
+
+    return order;
+  },
 };
 
 module.exports = Query;

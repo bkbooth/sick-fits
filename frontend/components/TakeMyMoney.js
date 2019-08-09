@@ -2,6 +2,8 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
+import Router from 'next/router';
+import NProgress from 'nprogress';
 import calculateTotalPrice from 'lib/calculateTotalPrice';
 import countCartItems from 'lib/countCartItems';
 import User, { CURRENT_USER_QUERY } from 'components/User';
@@ -10,12 +12,6 @@ export const CREATE_ORDER_MUTATION = gql`
   mutation CREATE_ORDER($token: String!) {
     createOrder(token: $token) {
       id
-      charge
-      total
-      items {
-        id
-        title
-      }
     }
   }
 `;
@@ -23,9 +19,12 @@ export const CREATE_ORDER_MUTATION = gql`
 const TakeMyMoney = ({ children }) => {
   function createOnToken(mutation) {
     return async ({ id }) => {
+      NProgress.start();
       try {
-        await mutation({ variables: { token: id } });
+        const { data } = await mutation({ variables: { token: id } });
+        Router.push('/orders/[orderId]', `/orders/${data.createOrder.id}`);
       } catch (error) {
+        NProgress.done();
         alert(error.message);
       }
     };

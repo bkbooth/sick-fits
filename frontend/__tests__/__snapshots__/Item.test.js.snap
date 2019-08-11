@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Item /> renders and matches the snapshot 1`] = `
+<ItemStyles__Item>
+  <img
+    alt="Testing item"
+    src="item.jpg"
+  />
+  <Title>
+    <Link
+      as="/items/abc123"
+      href="/items/[itemId]"
+      prefetch={true}
+    >
+      <a>
+        Testing item
+      </a>
+    </Link>
+  </Title>
+  <PriceTag>
+    $50
+  </PriceTag>
+  <p>
+    A really testable item
+  </p>
+  <div
+    className="buttonList"
+  >
+    <Link
+      as="/items/abc123/update"
+      href="/items/[itemId]/update"
+      prefetch={true}
+    >
+      <a>
+        ✏️ Edit
+      </a>
+    </Link>
+    <AddToCart
+      itemId="abc123"
+    />
+    <DeleteItem
+      itemId="abc123"
+    />
+  </div>
+</ItemStyles__Item>
+`;

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav /> renders pagination for 18 items 1`] = `
+<div
+  className="PaginationStyles-aduuar-0 ewJsCc"
+  data-test="pagination"
+>
+  <Head>
+    <Component
+      handleStateChange={null}
+      inAmpMode={false}
+      reduceComponentsToState={[Function]}
+    />
+  </Head>
+  <Link
+    href={
+      Object {
+        "pathname": "items",
+        "query": Object {
+          "page": 0,
+        },
+      }
+    }
+    prefetch={true}
+  >
+    <a
+      aria-disabled={true}
+      className="prev"
+      href="items?page=0"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      ← Prev
+    </a>
+  </Link>
+  <p>
+    Page 
+    1
+     of 
+    <span
+      data-test="total-pages"
+    >
+      5
+    </span>
+  </p>
+  <p>
+    18
+     items total
+  </p>
+  <Link
+    href={
+      Object {
+        "pathname": "items",
+        "query": Object {
+          "page": 2,
+        },
+      }
+    }
+    prefetch={true}
+  >
+    <a
+      aria-disabled={false}
+      className="next"
+      href="items?page=2"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Next →
+    </a>
+  </Link>
+</div>
+`;

@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Head from 'next/head';
 import Link from 'next/link';
+import Error from 'components/ErrorMessage';
 import PaginationStyles from 'components/styles/PaginationStyles';
 import { ITEMS_PER_PAGE } from '../config';
 
@@ -18,12 +19,13 @@ export const PAGINATION_QUERY = gql`
 
 const Pagination = ({ page }) => (
   <Query query={PAGINATION_QUERY}>
-    {({ data, loading }) => {
-      if (loading) return null;
+    {({ data, error, loading }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <Error error={error} />;
       const { count } = data.itemsConnection.aggregate;
       const pages = Math.ceil(count / ITEMS_PER_PAGE);
       return (
-        <PaginationStyles>
+        <PaginationStyles data-test="pagination">
           <Head>
             <title>
               Sick Fits! — Page {page} of {pages}
@@ -35,7 +37,7 @@ const Pagination = ({ page }) => (
             </a>
           </Link>
           <p>
-            Page {page} of {pages}
+            Page {page} of <span data-test="total-pages">{pages}</span>
           </p>
           <p>{count} items total</p>
           <Link href={{ pathname: 'items', query: { page: page + 1 } }} prefetch>

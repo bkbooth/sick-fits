@@ -2,5 +2,5 @@
   "compilerOptions": {
     "baseUrl": "."
   },
-  "include": ["components", "lib", "pages"]
+  "include": ["__tests__", "components", "lib", "pages"]
 }

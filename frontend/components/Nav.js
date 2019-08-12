@@ -11,7 +11,7 @@ import NavStyles from 'components/styles/NavStyles';
 const Nav = () => (
   <User>
     {({ data }) => (
-      <NavStyles>
+      <NavStyles data-test="nav">
         <Link href="/items">
           <a>Shop</a>
         </Link>
@@ -26,10 +26,10 @@ const Nav = () => (
             <Link href="/me">
               <a>Account</a>
             </Link>
-            <Signout />
+            <Signout data-test="signout-button" />
             <Mutation mutation={TOGGLE_CART_MUTATION}>
               {toggleCart => (
-                <button onClick={toggleCart}>
+                <button onClick={toggleCart} data-test="cart-button">
                   My cart
                   <CartCount count={countCartItems(data.me.cart)} />
                 </button>

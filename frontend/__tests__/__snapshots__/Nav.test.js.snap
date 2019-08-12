@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav /> renders minimal nav when signed out 1`] = `
+<ul
+  className="NavStyles-sc-11c0d2g-0 fJlgNF"
+  data-test="nav"
+>
+  <Link
+    href="/items"
+    prefetch={true}
+  >
+    <a
+      href="/items"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Shop
+    </a>
+  </Link>
+  <Link
+    href="/signup"
+    prefetch={true}
+  >
+    <a
+      href="/signup"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Signup
+    </a>
+  </Link>
+</ul>
+`;
+
+exports[`<Nav /> renders the amount of items in the cart 1`] = `
+<div
+  className="count CartCount__Dot-xxvp4g-0 jzkIQE"
+>
+  6
+</div>
+`;

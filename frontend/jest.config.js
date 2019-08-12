@@ -1,7 +1,7 @@
 module.exports = {
   modulePaths: ['<rootDir>'],
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
 };

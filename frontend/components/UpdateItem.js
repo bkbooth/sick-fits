@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mutation, Query } from 'react-apollo';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Error from 'components/ErrorMessage';
 import Form from 'components/styles/Form';
@@ -30,6 +30,11 @@ const UpdateItem = ({ itemId }) => {
   const [title, setTitle] = useState(undefined);
   const [description, setDescription] = useState(undefined);
   const [price, setPrice] = useState(undefined);
+  const { data, loading: itemLoading } = useQuery(SINGLE_ITEM_QUERY, { variables: { itemId } });
+  const [updateItem, { error: updateError, loading: updateLoading }] = useMutation(
+    UPDATE_ITEM_MUTATION,
+    { variables: { itemId, title, description, price } }
+  );
 
   function createChangeHandler(setter) {
     return event => {
@@ -38,83 +43,70 @@ const UpdateItem = ({ itemId }) => {
     };
   }
 
-  function createSubmissionHandler(mutation) {
-    return async event => {
-      event.preventDefault();
+  async function handleUpdateItem(event) {
+    event.preventDefault();
 
-      if (title === undefined && description === undefined && price === undefined) return;
-      await mutation();
+    if (title === undefined && description === undefined && price === undefined) return;
+    await updateItem();
 
-      setTitle(undefined);
-      setDescription(undefined);
-      setPrice(undefined);
-    };
+    setTitle(undefined);
+    setDescription(undefined);
+    setPrice(undefined);
   }
 
+  if (itemLoading) return <p>Loading...</p>;
+  if (!data.item) return <p>No item found for ID '{itemId}'</p>;
+
+  const { item } = data;
   return (
-    <Query query={SINGLE_ITEM_QUERY} variables={{ itemId }}>
-      {({ data, loading }) => {
-        if (loading) return <p>Loading...</p>;
-        if (!data.item) return <p>No Item found for ID '{itemId}'</p>;
-        return (
-          <Mutation
-            mutation={UPDATE_ITEM_MUTATION}
-            variables={{ itemId, title, description, price }}
-          >
-            {(updateItem, { error, loading }) => (
-              <Form onSubmit={createSubmissionHandler(updateItem)}>
-                <Error error={error} />
+    <Form onSubmit={handleUpdateItem}>
+      <Error error={updateError} />
 
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <label htmlFor="title">
-                    Title
-                    <input
-                      type="text"
-                      name="title"
-                      id="title"
-                      placeholder="Title"
-                      value={title}
-                      defaultValue={data.item.title}
-                      onChange={createChangeHandler(setTitle)}
-                      required
-                    />
-                  </label>
+      <fieldset disabled={updateLoading} aria-busy={updateLoading}>
+        <label htmlFor="title">
+          Title
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+            value={title}
+            defaultValue={item.title}
+            onChange={createChangeHandler(setTitle)}
+            required
+          />
+        </label>
 
-                  <label htmlFor="price">
-                    Price
-                    <input
-                      type="number"
-                      name="price"
-                      id="price"
-                      placeholder="Price"
-                      value={price}
-                      defaultValue={data.item.price}
-                      onChange={createChangeHandler(setPrice)}
-                      required
-                    />
-                  </label>
+        <label htmlFor="price">
+          Price
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Price"
+            value={price}
+            defaultValue={item.price}
+            onChange={createChangeHandler(setPrice)}
+            required
+          />
+        </label>
 
-                  <label htmlFor="description">
-                    Description
-                    <textarea
-                      name="description"
-                      id="description"
-                      placeholder="Enter a description"
-                      value={description}
-                      defaultValue={data.item.description}
-                      onChange={createChangeHandler(setDescription)}
-                      required
-                    />
-                  </label>
+        <label htmlFor="description">
+          Description
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Enter a description"
+            value={description}
+            defaultValue={item.description}
+            onChange={createChangeHandler(setDescription)}
+            required
+          />
+        </label>
 
-                  <button type="submit">Sav{loading ? 'ing' : 'e'} changes</button>
-                </fieldset>
-              </Form>
-            )}
-          </Mutation>
-        );
-      }}
-    </Query>
+        <button type="submit">Sav{updateLoading ? 'ing' : 'e'} changes</button>
+      </fieldset>
+    </Form>
   );
 };
 

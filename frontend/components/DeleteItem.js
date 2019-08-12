@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { ALL_ITEMS_QUERY } from 'components/Items';
@@ -13,10 +13,14 @@ export const DELETE_ITEM_MUTATION = gql`
 `;
 
 const DeleteItem = ({ itemId }) => {
-  function createDeleteHandler(mutation) {
-    return () =>
-      confirm('Are you sure you want to delete this item?') &&
-      mutation().catch(error => alert(error.message));
+  const [deleteItem, { loading }] = useMutation(DELETE_ITEM_MUTATION, {
+    variables: { itemId },
+    update: cacheUpdate,
+  });
+
+  function handleDeleteItem() {
+    confirm('Are you sure you want to delete this item?') &&
+      deleteItem().catch(error => alert(error.message));
   }
 
   function cacheUpdate(cache, payload) {
@@ -26,13 +30,9 @@ const DeleteItem = ({ itemId }) => {
   }
 
   return (
-    <Mutation mutation={DELETE_ITEM_MUTATION} variables={{ itemId }} update={cacheUpdate}>
-      {(deleteItem, { loading }) => (
-        <button onClick={createDeleteHandler(deleteItem)} disabled={loading}>
-          🗑️ Delet{loading ? 'ing' : 'e'} item
-        </button>
-      )}
-    </Mutation>
+    <button onClick={handleDeleteItem} disabled={loading}>
+      🗑️ Delet{loading ? 'ing' : 'e'} item
+    </button>
   );
 };
 

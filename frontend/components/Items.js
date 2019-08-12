@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Error from 'components/ErrorMessage';
@@ -32,24 +32,28 @@ const ItemsList = styled.div`
   margin: 0 auto;
 `;
 
-const Items = ({ page }) => (
-  <Center>
-    <Pagination page={page} />
-    <Query query={ALL_ITEMS_QUERY} variables={{ skip: page * ITEMS_PER_PAGE - ITEMS_PER_PAGE }}>
-      {({ data, error, loading }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <Error error={error} />;
-        return (
-          <ItemsList>
-            {data.items.map(item => (
-              <Item item={item} key={item.id} />
-            ))}
-          </ItemsList>
-        );
-      }}
-    </Query>
-    <Pagination page={page} />
-  </Center>
-);
+const Items = ({ page }) => {
+  const { data, error, loading } = useQuery(ALL_ITEMS_QUERY, {
+    variables: { skip: page * ITEMS_PER_PAGE - ITEMS_PER_PAGE },
+  });
+
+  return (
+    <Center>
+      <Pagination page={page} />
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <Error error={error} />
+      ) : (
+        <ItemsList>
+          {data.items.map(item => (
+            <Item item={item} key={item.id} />
+          ))}
+        </ItemsList>
+      )}
+      <Pagination page={page} />
+    </Center>
+  );
+};
 
 export default Items;

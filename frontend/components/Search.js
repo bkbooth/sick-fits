@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ApolloConsumer } from 'react-apollo';
+import { ApolloConsumer } from '@apollo/react-common';
 import Downshift, { resetIdCounter } from 'downshift';
 import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';

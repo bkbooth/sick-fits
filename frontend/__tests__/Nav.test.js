@@ -1,5 +1,6 @@
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 import { fakeCartItem, fakeUser } from 'lib/testUtils';
 import Nav from 'components/Nav';
@@ -35,7 +36,7 @@ describe('<Nav />', () => {
         <Nav />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav).toMatchSnapshot();
@@ -50,7 +51,7 @@ describe('<Nav />', () => {
         <Nav />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav.children()).toHaveLength(6);
@@ -68,7 +69,7 @@ describe('<Nav />', () => {
         <Nav />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav.find('div.count')).toMatchSnapshot();

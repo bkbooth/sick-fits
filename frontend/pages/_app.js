@@ -1,4 +1,4 @@
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-common';
 import App, { Container } from 'next/app';
 import withApollo from 'lib/withApollo';
 import Page from 'components/Page';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import Error from 'components/ErrorMessage';
@@ -31,6 +31,9 @@ const CreateItem = () => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [largeImage, setLargeImage] = useState('');
+  const [createItem, { error, loading }] = useMutation(CREATE_ITEM_MUTATION, {
+    variables: { title, description, price, image, largeImage },
+  });
 
   async function uploadFile(event) {
     const { files } = event.currentTarget;
@@ -54,80 +57,71 @@ const CreateItem = () => {
     };
   }
 
-  function createSubmissionHandler(mutation) {
-    return async event => {
-      event.preventDefault();
-      const { data } = await mutation();
-      Router.push('/items/[itemId]', `/items/${data.createItem.id}`);
-    };
+  async function handleCreateItem(event) {
+    event.preventDefault();
+    const { data } = await createItem();
+    Router.push('/items/[itemId]', `/items/${data.createItem.id}`);
   }
 
   return (
-    <Mutation
-      mutation={CREATE_ITEM_MUTATION}
-      variables={{ title, description, price, image, largeImage }}
-    >
-      {(createItem, { error, loading }) => (
-        <Form onSubmit={createSubmissionHandler(createItem)}>
-          <Error error={error} />
+    <Form onSubmit={handleCreateItem}>
+      <Error error={error} />
 
-          <fieldset disabled={loading} aria-busy={loading}>
-            <label htmlFor="file">
-              Image
-              <input
-                type="file"
-                name="file"
-                id="file"
-                placeholder="Upload an image"
-                onChange={uploadFile}
-                required
-              />
-              {image && <img src={image} width="200" alt="Uploaded image preview" />}
-            </label>
+      <fieldset disabled={loading} aria-busy={loading}>
+        <label htmlFor="file">
+          Image
+          <input
+            type="file"
+            name="file"
+            id="file"
+            placeholder="Upload an image"
+            onChange={uploadFile}
+            required
+          />
+          {image && <img src={image} width="200" alt="Uploaded image preview" />}
+        </label>
 
-            <label htmlFor="title">
-              Title
-              <input
-                type="text"
-                name="title"
-                id="title"
-                placeholder="Title"
-                value={title}
-                onChange={createChangeHandler(setTitle)}
-                required
-              />
-            </label>
+        <label htmlFor="title">
+          Title
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+            value={title}
+            onChange={createChangeHandler(setTitle)}
+            required
+          />
+        </label>
 
-            <label htmlFor="price">
-              Price
-              <input
-                type="number"
-                name="price"
-                id="price"
-                placeholder="Price"
-                value={price}
-                onChange={createChangeHandler(setPrice)}
-                required
-              />
-            </label>
+        <label htmlFor="price">
+          Price
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Price"
+            value={price}
+            onChange={createChangeHandler(setPrice)}
+            required
+          />
+        </label>
 
-            <label htmlFor="description">
-              Description
-              <textarea
-                name="description"
-                id="description"
-                placeholder="Enter a description"
-                value={description}
-                onChange={createChangeHandler(setDescription)}
-                required
-              />
-            </label>
+        <label htmlFor="description">
+          Description
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Enter a description"
+            value={description}
+            onChange={createChangeHandler(setDescription)}
+            required
+          />
+        </label>
 
-            <button type="submit">Sav{loading ? 'ing' : 'e'} item</button>
-          </fieldset>
-        </Form>
-      )}
-    </Mutation>
+        <button type="submit">Sav{loading ? 'ing' : 'e'} item</button>
+      </fieldset>
+    </Form>
   );
 };
 

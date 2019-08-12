@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import Router from 'next/router';
@@ -17,38 +17,36 @@ export const CREATE_ORDER_MUTATION = gql`
 `;
 
 const TakeMyMoney = ({ children }) => {
-  function createOnToken(mutation) {
-    return async ({ id }) => {
-      NProgress.start();
-      try {
-        const { data } = await mutation({ variables: { token: id } });
-        Router.push('/orders/[orderId]', `/orders/${data.createOrder.id}`);
-      } catch (error) {
-        NProgress.done();
-        alert(error.message);
-      }
-    };
+  const [createOrder] = useMutation(CREATE_ORDER_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+
+  async function onToken({ id }) {
+    NProgress.start();
+    try {
+      const { data } = await createOrder({ variables: { token: id } });
+      Router.push('/orders/[orderId]', `/orders/${data.createOrder.id}`);
+    } catch (error) {
+      NProgress.done();
+      alert(error.message);
+    }
   }
 
   return (
     <User>
       {({ data: { me } }) => (
-        <Mutation mutation={CREATE_ORDER_MUTATION} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
-          {createOrder => (
-            <StripeCheckout
-              name="Sick Fits!"
-              description={`Order of ${countCartItems(me.cart)} items`}
-              image={me.cart[0].item ? me.cart[0].item.image : null}
-              amount={calculateTotalPrice(me.cart)}
-              currency="AUD"
-              stripeKey="pk_test_nmnQGOikwUBoSjWEFR2tvQdR"
-              email={me.email}
-              token={createOnToken(createOrder)}
-            >
-              {children}
-            </StripeCheckout>
-          )}
-        </Mutation>
+        <StripeCheckout
+          name="Sick Fits!"
+          description={`Order of ${countCartItems(me.cart)} items`}
+          image={me.cart[0].item ? me.cart[0].item.image : null}
+          amount={calculateTotalPrice(me.cart)}
+          currency="AUD"
+          stripeKey="pk_test_nmnQGOikwUBoSjWEFR2tvQdR"
+          email={me.email}
+          token={onToken}
+        >
+          {children}
+        </StripeCheckout>
       )}
     </User>
   );

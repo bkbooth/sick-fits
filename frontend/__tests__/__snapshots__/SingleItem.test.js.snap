@@ -7,7 +7,7 @@ exports[`<SingleItem /> errors with a not found item 1`] = `
   <strong>
     Shoot!
   </strong>
-  Item not found
+  Network error: Item not found
 </p>
 `;
 

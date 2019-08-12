@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Error from 'components/ErrorMessage';
 import Form from 'components/styles/Form';
@@ -14,50 +14,47 @@ export const REQUEST_RESET_MUTATION = gql`
 
 const RequestReset = () => {
   const [email, setEmail] = useState('');
+  const [requestReset, { called, error, loading }] = useMutation(REQUEST_RESET_MUTATION, {
+    variables: { email },
+  });
 
   function createChangeHandler(setter) {
     return event => setter(event.currentTarget.value);
   }
 
-  function createSubmissionHandler(mutation) {
-    return async event => {
-      event.preventDefault();
-      await mutation();
-      setEmail('');
-    };
+  async function handleRequestReset(event) {
+    event.preventDefault();
+    await requestReset();
+    setEmail('');
   }
 
   return (
-    <Mutation mutation={REQUEST_RESET_MUTATION} variables={{ email }}>
-      {(requestReset, { called, error, loading }) => (
-        <Form onSubmit={createSubmissionHandler(requestReset)} method="post">
-          <fieldset disabled={loading} aria-busy={loading}>
-            <h2>Request a password reset</h2>
+    <Form onSubmit={handleRequestReset} method="post">
+      <fieldset disabled={loading} aria-busy={loading}>
+        <h2>Request a password reset</h2>
 
-            <Error error={error} />
+        <Error error={error} />
 
-            {!error && !loading && called && (
-              <p>Your password reset link has been sent to your email address.</p>
-            )}
+        {!error && !loading && called && (
+          <p>Your password reset link has been sent to your email address.</p>
+        )}
 
-            <label htmlFor="email">
-              Email
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={createChangeHandler(setEmail)}
-                required
-              />
-            </label>
+        <label htmlFor="email">
+          Email
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={createChangeHandler(setEmail)}
+            required
+          />
+        </label>
 
-            <button type="submit">Request{loading ? 'ing' : ''} reset</button>
-          </fieldset>
-        </Form>
-      )}
-    </Mutation>
+        <button type="submit">Request{loading ? 'ing' : ''} reset</button>
+      </fieldset>
+    </Form>
   );
 };
 

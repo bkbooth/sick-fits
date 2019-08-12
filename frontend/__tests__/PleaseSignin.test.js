@@ -1,5 +1,6 @@
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 import { fakeUser } from 'lib/testUtils';
 import PleaseSignin from 'components/PleaseSignin';
@@ -30,7 +31,7 @@ describe('<PleaseSignin />', () => {
         </PleaseSignin>
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.text()).toContain('Please sign in before continuing');
     expect(wrapper.find('Signin').exists()).toBe(true);
@@ -45,7 +46,7 @@ describe('<PleaseSignin />', () => {
         </PleaseSignin>
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.contains(<ChildComponent />)).toBe(true);
   });

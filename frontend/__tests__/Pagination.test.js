@@ -1,5 +1,6 @@
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 import Pagination, { PAGINATION_QUERY } from 'components/Pagination';
 
@@ -35,7 +36,7 @@ describe('<Nav />', () => {
         <Pagination page={1} />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('[data-test="total-pages"]').text()).toBe('5');
     expect(wrapper.find('div[data-test="pagination"]')).toMatchSnapshot();
@@ -47,7 +48,7 @@ describe('<Nav />', () => {
         <Pagination page={1} />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('a.prev').prop('aria-disabled')).toBe(true);
     expect(wrapper.find('a.next').prop('aria-disabled')).toBe(false);
@@ -59,7 +60,7 @@ describe('<Nav />', () => {
         <Pagination page={5} />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('a.prev').prop('aria-disabled')).toBe(false);
     expect(wrapper.find('a.next').prop('aria-disabled')).toBe(true);
@@ -71,7 +72,7 @@ describe('<Nav />', () => {
         <Pagination page={3} />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('a.prev').prop('aria-disabled')).toBe(false);
     expect(wrapper.find('a.next').prop('aria-disabled')).toBe(false);

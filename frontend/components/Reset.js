@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -21,70 +21,64 @@ const Reset = ({ resetToken }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [resetPassword, { error, loading }] = useMutation(RESET_PASSWORD_MUTATION, {
+    variables: { resetToken, password },
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
 
   function createChangeHandler(setter) {
     return event => setter(event.currentTarget.value);
   }
 
-  function createSubmissionHandler(mutation) {
-    return async event => {
-      event.preventDefault();
+  async function handleResetPassword(event) {
+    event.preventDefault();
 
-      if (password !== confirmPassword) {
-        setErrorMessage('Password and confirm password must be the same');
-        return;
-      }
-      setErrorMessage('');
+    if (password !== confirmPassword) {
+      setErrorMessage('Password and confirm password must be the same');
+      return;
+    }
+    setErrorMessage('');
 
-      await mutation();
-      Router.push('/');
-    };
+    await resetPassword();
+    Router.push('/');
   }
 
   return (
-    <Mutation
-      mutation={RESET_PASSWORD_MUTATION}
-      variables={{ resetToken, password }}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {(resetPassword, { error, loading }) => (
-        <Form onSubmit={createSubmissionHandler(resetPassword)} method="post">
-          <fieldset disabled={loading} aria-busy={loading}>
-            <h2>Reset your password</h2>
+    <Form onSubmit={handleResetPassword} method="post">
+      <fieldset disabled={loading} aria-busy={loading}>
+        <h2>Reset your password</h2>
 
-            <Error error={error || (errorMessage ? { message: errorMessage } : null)} />
+        <Error error={error || (errorMessage ? { message: errorMessage } : null)} />
 
-            <label htmlFor="password">
-              Password
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={createChangeHandler(setPassword)}
-                required
-              />
-            </label>
+        <label htmlFor="password">
+          Password
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={createChangeHandler(setPassword)}
+            required
+          />
+        </label>
 
-            <label htmlFor="confirmPassword">
-              Confirm your password
-              <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={createChangeHandler(setConfirmPassword)}
-                required
-              />
-            </label>
+        <label htmlFor="confirmPassword">
+          Confirm your password
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            value={confirmPassword}
+            onChange={createChangeHandler(setConfirmPassword)}
+            required
+          />
+        </label>
 
-            <button type="submit">Reset{loading ? 'ting' : ''} password</button>
-          </fieldset>
-        </Form>
-      )}
-    </Mutation>
+        <button type="submit">Reset{loading ? 'ting' : ''} password</button>
+      </fieldset>
+    </Form>
   );
 };
 

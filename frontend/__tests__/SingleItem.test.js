@@ -1,5 +1,6 @@
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 import { fakeItem } from 'lib/testUtils';
 import SingleItem, { SINGLE_ITEM_QUERY } from 'components/SingleItem';
@@ -19,7 +20,7 @@ describe('<SingleItem />', () => {
     );
     expect(wrapper.text()).toContain('Loading...');
 
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('h2')).toMatchSnapshot();
     expect(wrapper.find('img')).toMatchSnapshot();
@@ -30,7 +31,7 @@ describe('<SingleItem />', () => {
     const mocks = [
       {
         request: { query: SINGLE_ITEM_QUERY, variables: { itemId: '123' } },
-        result: { errors: [{ message: 'Item not found' }] },
+        error: new Error('Item not found'),
       },
     ];
     const wrapper = mount(
@@ -38,7 +39,7 @@ describe('<SingleItem />', () => {
         <SingleItem itemId="123" />
       </MockedProvider>
     );
-    await wait();
+    await act(() => wait());
     wrapper.update();
     expect(wrapper.find('[data-test="graphql-error"]')).toMatchSnapshot();
   });

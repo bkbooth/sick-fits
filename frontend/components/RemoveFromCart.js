@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -24,10 +24,17 @@ const BigButton = styled.button`
 `;
 
 const RemoveFromCart = ({ cartItemId }) => {
-  function createRemoveHandler(mutation) {
-    return () => {
-      mutation().catch(error => alert(error.message));
-    };
+  const [removeFromCart, { loading }] = useMutation(REMOVE_FROM_CART_MUTATION, {
+    variables: { cartItemId },
+    update: handleMutationUpdate,
+    optimisticResponse: {
+      __typename: 'Mutation',
+      removeFromCart: { __typename: 'CartItem', id: cartItemId },
+    },
+  });
+
+  function handleRemoveFromCart() {
+    removeFromCart().catch(error => alert(error.message));
   }
 
   function handleMutationUpdate(cache, payload) {
@@ -38,25 +45,9 @@ const RemoveFromCart = ({ cartItemId }) => {
   }
 
   return (
-    <Mutation
-      mutation={REMOVE_FROM_CART_MUTATION}
-      variables={{ cartItemId }}
-      update={handleMutationUpdate}
-      optimisticResponse={{
-        __typename: 'Mutation',
-        removeFromCart: { __typename: 'CartItem', id: cartItemId },
-      }}
-    >
-      {(removeFromCart, { loading }) => (
-        <BigButton
-          onClick={createRemoveHandler(removeFromCart)}
-          title="Remove item"
-          disabled={loading}
-        >
-          ×
-        </BigButton>
-      )}
-    </Mutation>
+    <BigButton onClick={handleRemoveFromCart} title="Remove item" disabled={loading}>
+      ×
+    </BigButton>
   );
 };
 

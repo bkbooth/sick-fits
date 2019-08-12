@@ -1,4 +1,5 @@
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
+// TODO: remove react-apollo dependency with next-with-apollo is updated
 import withApollo from 'next-with-apollo';
 import { LOCAL_STATE_QUERY } from 'components/Cart';
 import { GRAPHQL_URL } from '../config';

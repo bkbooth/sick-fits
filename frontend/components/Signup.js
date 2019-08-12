@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import Error from 'components/ErrorMessage';
@@ -20,76 +20,70 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [signup, { error, loading }] = useMutation(SIGNUP_MUTATION, {
+    variables: { name, email, password },
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
 
   function createChangeHandler(setter) {
     return event => setter(event.currentTarget.value);
   }
 
-  function createSubmissionHandler(mutation) {
-    return async event => {
-      event.preventDefault();
-      await mutation();
-      Router.push('/');
-    };
+  async function handleSignup(event) {
+    event.preventDefault();
+    await signup();
+    Router.push('/');
   }
 
   return (
-    <Mutation
-      mutation={SIGNUP_MUTATION}
-      variables={{ name, email, password }}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {(signup, { error, loading }) => (
-        <Form onSubmit={createSubmissionHandler(signup)} method="post">
-          <fieldset disabled={loading} aria-busy={loading}>
-            <h2>Signup for an account</h2>
+    <Form onSubmit={handleSignup} method="post">
+      <fieldset disabled={loading} aria-busy={loading}>
+        <h2>Signup for an account</h2>
 
-            <Error error={error} />
+        <Error error={error} />
 
-            <label htmlFor="name">
-              Name
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Name"
-                value={name}
-                onChange={createChangeHandler(setName)}
-                required
-              />
-            </label>
+        <label htmlFor="name">
+          Name
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            value={name}
+            onChange={createChangeHandler(setName)}
+            required
+          />
+        </label>
 
-            <label htmlFor="email">
-              Email
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={createChangeHandler(setEmail)}
-                required
-              />
-            </label>
+        <label htmlFor="email">
+          Email
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={createChangeHandler(setEmail)}
+            required
+          />
+        </label>
 
-            <label htmlFor="password">
-              Password
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={createChangeHandler(setPassword)}
-                required
-              />
-            </label>
+        <label htmlFor="password">
+          Password
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={createChangeHandler(setPassword)}
+            required
+          />
+        </label>
 
-            <button type="submit">Sign{loading ? 'ing ' : ''}up</button>
-          </fieldset>
-        </Form>
-      )}
-    </Mutation>
+        <button type="submit">Sign{loading ? 'ing ' : ''}up</button>
+      </fieldset>
+    </Form>
   );
 };
 

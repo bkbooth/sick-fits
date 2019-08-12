@@ -1,5 +1,4 @@
-import React from 'react';
-import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
@@ -24,9 +23,10 @@ export const CURRENT_USER_QUERY = gql`
   }
 `;
 
-const User = ({ children }) => (
-  <Query query={CURRENT_USER_QUERY}>{payload => children(payload)}</Query>
-);
+const User = ({ children }) => {
+  const payload = useQuery(CURRENT_USER_QUERY);
+  return children(payload);
+};
 
 User.propTypes = {
   children: PropTypes.func.isRequired,

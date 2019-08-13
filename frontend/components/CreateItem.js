@@ -36,7 +36,7 @@ const CreateItem = () => {
   });
 
   async function uploadFile(event) {
-    const { files } = event.currentTarget;
+    const { files } = event.target;
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'sick-fits');
@@ -52,7 +52,7 @@ const CreateItem = () => {
 
   function createChangeHandler(setter) {
     return event => {
-      const { type, value } = event.currentTarget;
+      const { type, value } = event.target;
       setter(type === 'number' ? parseFloat(value) : value);
     };
   }

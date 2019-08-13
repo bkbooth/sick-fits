@@ -50,8 +50,7 @@ const Search = () => {
                     id: 'search',
                     className: loading ? 'loading' : '',
                     placeholder: 'Search for an item...',
-                    onChange: event =>
-                      setLoading(true) || handleSearch(client, event.currentTarget.value),
+                    onChange: event => setLoading(true) || handleSearch(client, event.target.value),
                   })}
                 />
               )}

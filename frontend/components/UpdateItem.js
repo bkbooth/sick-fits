@@ -38,7 +38,7 @@ const UpdateItem = ({ itemId }) => {
 
   function createChangeHandler(setter) {
     return event => {
-      const { type, value } = event.currentTarget;
+      const { type, value } = event.target;
       setter(type === 'number' ? parseFloat(value) : value);
     };
   }

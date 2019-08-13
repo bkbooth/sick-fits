@@ -19,7 +19,7 @@ const RequestReset = () => {
   });
 
   function createChangeHandler(setter) {
-    return event => setter(event.currentTarget.value);
+    return event => setter(event.target.value);
   }
 
   async function handleRequestReset(event) {

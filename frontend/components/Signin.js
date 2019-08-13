@@ -25,7 +25,7 @@ const Signin = ({ redirect = true }) => {
   });
 
   function createChangeHandler(setter) {
-    return event => setter(event.currentTarget.value);
+    return event => setter(event.target.value);
   }
 
   async function handleSignin(event) {

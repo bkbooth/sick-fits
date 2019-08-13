@@ -72,7 +72,7 @@ const UserPermissions = ({ user }) => {
   });
 
   async function handleUpdatePermissions(event) {
-    const { checked, value } = event.currentTarget;
+    const { checked, value } = event.target;
     let updatedPermissions = [...permissions];
     if (checked) updatedPermissions.push(value);
     else updatedPermissions = updatedPermissions.filter(permission => permission !== value);

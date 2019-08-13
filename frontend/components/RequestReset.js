@@ -29,14 +29,14 @@ const RequestReset = () => {
   }
 
   return (
-    <Form onSubmit={handleRequestReset} method="post">
+    <Form onSubmit={handleRequestReset} method="post" data-test="form">
       <fieldset disabled={loading} aria-busy={loading}>
         <h2>Request a password reset</h2>
 
         <Error error={error} />
 
         {!error && !loading && called && (
-          <p>Your password reset link has been sent to your email address.</p>
+          <p data-test="success">Your password reset link has been sent to your email address.</p>
         )}
 
         <label htmlFor="email">

@@ -64,7 +64,7 @@ const CreateItem = () => {
   }
 
   return (
-    <Form onSubmit={handleCreateItem}>
+    <Form onSubmit={handleCreateItem} data-test="form">
       <Error error={error} />
 
       <fieldset disabled={loading} aria-busy={loading}>

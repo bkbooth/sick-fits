@@ -1,8 +1,7 @@
-import { MockedProvider } from '@apollo/react-testing';
+import { MockedProvider, wait } from '@apollo/react-testing';
 import { mount } from 'enzyme';
 import Router from 'next/router';
 import { act } from 'react-dom/test-utils';
-import wait from 'waait';
 import { fakeItem } from 'lib/testUtils';
 import CreateItem, { CREATE_ITEM_MUTATION } from 'components/CreateItem';
 

@@ -1,7 +1,6 @@
-import { MockedProvider } from '@apollo/react-testing';
+import { MockedProvider, wait } from '@apollo/react-testing';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import wait from 'waait';
 import { fakeItem } from 'lib/testUtils';
 import SingleItem, { SINGLE_ITEM_QUERY } from 'components/SingleItem';
 

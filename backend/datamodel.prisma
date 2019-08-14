@@ -16,6 +16,7 @@ type User {
   resetToken: String
   resetTokenExpiry: String
   cart: [CartItem]!
+  orders: [Order]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

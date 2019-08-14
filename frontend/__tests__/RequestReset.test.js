@@ -1,6 +1,7 @@
 import { MockedProvider, wait } from '@apollo/react-testing';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
+import { typeInto } from 'lib/testUtils';
 import RequestReset, { REQUEST_RESET_MUTATION } from 'components/RequestReset';
 
 const mocks = [
@@ -26,9 +27,7 @@ describe('<RequestReset />', () => {
         <RequestReset />
       </MockedProvider>
     );
-    wrapper
-      .find('input[name="email"]')
-      .simulate('change', { target: { value: 'test@example.com' } });
+    typeInto(wrapper, 'email', 'email', 'test@example.com');
     wrapper.find('form').simulate('submit');
     await act(() => wait());
     wrapper.update();

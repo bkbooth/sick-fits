@@ -2,7 +2,7 @@ import { MockedProvider, wait } from '@apollo/react-testing';
 import { mount } from 'enzyme';
 import Router from 'next/router';
 import { act } from 'react-dom/test-utils';
-import { fakeItem } from 'lib/testUtils';
+import { fakeItem, typeInto } from 'lib/testUtils';
 import CreateItem, { CREATE_ITEM_MUTATION } from 'components/CreateItem';
 
 const fakeImageUrl = 'https://example.com/images/item.jpg';
@@ -51,8 +51,8 @@ describe('<CreateItem />', () => {
         <CreateItem />
       </MockedProvider>
     );
-    wrapper.find('#title').simulate('change', { target: { type: 'text', value: 'Test item' } });
-    wrapper.find('#price').simulate('change', { target: { type: 'number', value: '50000' } });
+    typeInto(wrapper, 'title', 'text', 'Test item');
+    typeInto(wrapper, 'price', 'number', '50000');
     wrapper.find('#description').simulate('change', { target: { value: 'This is a test item' } });
     await act(() => wait());
     wrapper.update();
@@ -84,8 +84,8 @@ describe('<CreateItem />', () => {
       </MockedProvider>
     );
     wrapper.find('#file').simulate('change', { target: { files: [item.image] } });
-    wrapper.find('#title').simulate('change', { target: { type: 'text', value: item.title } });
-    wrapper.find('#price').simulate('change', { target: { type: 'number', value: item.price } });
+    typeInto(wrapper, 'title', 'text', item.title);
+    typeInto(wrapper, 'price', 'number', item.price);
     wrapper.find('#description').simulate('change', { target: { value: item.description } });
     await act(() => wait());
     wrapper.find('form[data-test="form"]').simulate('submit');

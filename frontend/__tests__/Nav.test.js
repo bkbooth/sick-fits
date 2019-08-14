@@ -5,6 +5,9 @@ import { fakeCartItem, fakeUser } from 'lib/testUtils';
 import Nav from 'components/Nav';
 import { CURRENT_USER_QUERY } from 'components/User';
 
+const me = fakeUser();
+const cart = [fakeCartItem(), fakeCartItem()];
+
 const notSignedInMocks = [
   {
     request: { query: CURRENT_USER_QUERY },
@@ -15,7 +18,7 @@ const notSignedInMocks = [
 const signedInMocks = [
   {
     request: { query: CURRENT_USER_QUERY },
-    result: { data: { me: fakeUser() } },
+    result: { data: { me } },
   },
 ];
 
@@ -23,7 +26,7 @@ const signedInWithCartItemsMocks = [
   {
     request: { query: CURRENT_USER_QUERY },
     result: {
-      data: { me: { ...fakeUser(), cart: [fakeCartItem(), fakeCartItem()] } },
+      data: { me: { ...me, cart } },
     },
   },
 ];

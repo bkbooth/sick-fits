@@ -3,31 +3,31 @@
 exports[`<Item /> renders and matches the snapshot 1`] = `
 <ItemStyles__Item>
   <img
-    alt="Testing item"
-    src="item.jpg"
+    alt="Soluta non"
+    src="dicta.jpg"
   />
   <Title>
     <Link
-      as="/items/abc123"
+      as="/items/3a430a73-c9e9-4bcc-b46a-41618965ffea"
       href="/items/[itemId]"
       prefetch={true}
     >
       <a>
-        Testing item
+        Soluta non
       </a>
     </Link>
   </Title>
   <PriceTag>
-    $50
+    $164.46
   </PriceTag>
   <p>
-    A really testable item
+    Enim quia autem et modi tenetur amet modi reprehenderit. Adipisci eius laborum eius aut illo dolorum. Aliquam id sit. Vel ipsa tempora aut sint aperiam occaecati illum animi vel.
   </p>
   <div
     className="buttonList"
   >
     <Link
-      as="/items/abc123/update"
+      as="/items/3a430a73-c9e9-4bcc-b46a-41618965ffea/update"
       href="/items/[itemId]/update"
       prefetch={true}
     >
@@ -36,10 +36,10 @@ exports[`<Item /> renders and matches the snapshot 1`] = `
       </a>
     </Link>
     <AddToCart
-      itemId="abc123"
+      itemId="3a430a73-c9e9-4bcc-b46a-41618965ffea"
     />
     <DeleteItem
-      itemId="abc123"
+      itemId="3a430a73-c9e9-4bcc-b46a-41618965ffea"
     />
   </div>
 </ItemStyles__Item>

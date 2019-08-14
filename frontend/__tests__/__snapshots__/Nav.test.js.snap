@@ -36,6 +36,6 @@ exports[`<Nav /> renders the amount of items in the cart 1`] = `
 <div
   className="count CartCount__Dot-xxvp4g-0 jzkIQE"
 >
-  6
+  9
 </div>
 `;

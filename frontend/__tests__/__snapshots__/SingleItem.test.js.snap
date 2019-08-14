@@ -13,19 +13,19 @@ exports[`<SingleItem /> errors with a not found item 1`] = `
 
 exports[`<SingleItem /> renders with proper data 1`] = `
 <h2>
-  Testing item
+  Soluta non
 </h2>
 `;
 
 exports[`<SingleItem /> renders with proper data 2`] = `
 <img
-  alt="Testing item"
-  src="yugeitem.jpg"
+  alt="Soluta non"
+  src="perferendis-large.jpg"
 />
 `;
 
 exports[`<SingleItem /> renders with proper data 3`] = `
 <p>
-  A really testable item
+  Enim quia autem et modi tenetur amet modi reprehenderit. Adipisci eius laborum eius aut illo dolorum. Aliquam id sit. Vel ipsa tempora aut sint aperiam occaecati illum animi vel.
 </p>
 `;

@@ -15,19 +15,19 @@ export const fakeUser = () => ({
 
 export const fakeItem = () => ({
   __typename: 'Item',
-  id: 'abc123',
-  title: 'Testing item',
-  description: 'A really testable item',
-  price: 5000,
-  image: 'item.jpg',
-  largeImage: 'yugeitem.jpg',
+  id: casual.uuid,
+  title: casual.title,
+  description: casual.description,
+  price: casual.integer(1000, 30000),
+  image: `${casual.word}.jpg`,
+  largeImage: `${casual.word}-large.jpg`,
   user: null,
 });
 
 export const fakeCartItem = overrides => ({
   __typename: 'CartItem',
-  id: 'def456',
-  quantity: 3,
+  id: casual.uuid,
+  quantity: casual.integer(1, 5),
   item: fakeItem(),
   user: fakeUser(),
   ...overrides,

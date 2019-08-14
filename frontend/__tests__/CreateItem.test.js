@@ -75,7 +75,7 @@ describe('<CreateItem />', () => {
             largeImage: fakeImageUrl,
           },
         },
-        result: { data: { createItem: { __typename: 'Item', id: 'abc123', ...fakeItem } } },
+        result: { data: { createItem: item } },
       },
     ];
     const wrapper = mount(
@@ -90,6 +90,6 @@ describe('<CreateItem />', () => {
     await act(() => wait());
     wrapper.find('form[data-test="form"]').simulate('submit');
     await act(() => wait());
-    expect(Router.push).toHaveBeenCalledWith('/items/[itemId]', '/items/abc123');
+    expect(Router.push).toHaveBeenCalledWith('/items/[itemId]', `/items/${item.id}`);
   });
 });

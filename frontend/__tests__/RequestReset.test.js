@@ -27,7 +27,7 @@ describe('<RequestReset />', () => {
         <RequestReset />
       </MockedProvider>
     );
-    typeInto(wrapper, 'email', 'email', 'test@example.com');
+    typeInto(wrapper, { type: 'email', name: 'email', value: 'test@example.com' });
     wrapper.find('form').simulate('submit');
     await act(() => wait());
     wrapper.update();

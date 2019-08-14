@@ -52,9 +52,9 @@ describe('<Signup />', () => {
         </ApolloConsumer>
       </MockedProvider>
     );
-    typeInto(wrapper, 'name', 'text', me.name);
-    typeInto(wrapper, 'email', 'email', me.email);
-    typeInto(wrapper, 'password', 'password', 'testing123');
+    typeInto(wrapper, { name: 'name', value: me.name });
+    typeInto(wrapper, { name: 'email', type: 'email', value: me.email });
+    typeInto(wrapper, { name: 'password', type: 'password', value: 'testing123' });
     await act(() => wait());
     wrapper.find('form[data-test="form"]').simulate('submit');
     await act(() => wait());

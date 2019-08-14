@@ -51,9 +51,9 @@ describe('<CreateItem />', () => {
         <CreateItem />
       </MockedProvider>
     );
-    typeInto(wrapper, 'title', 'text', 'Test item');
-    typeInto(wrapper, 'price', 'number', '50000');
-    wrapper.find('#description').simulate('change', { target: { value: 'This is a test item' } });
+    typeInto(wrapper, { name: 'title', value: 'Test item' });
+    typeInto(wrapper, { name: 'price', value: '50000', type: 'number' });
+    typeInto(wrapper, { name: 'description', value: 'This is a test item', inputType: 'textarea' });
     await act(() => wait());
     wrapper.update();
     expect(wrapper.find('#title').prop('value')).toBe('Test item');
@@ -84,9 +84,9 @@ describe('<CreateItem />', () => {
       </MockedProvider>
     );
     wrapper.find('#file').simulate('change', { target: { files: [item.image] } });
-    typeInto(wrapper, 'title', 'text', item.title);
-    typeInto(wrapper, 'price', 'number', item.price);
-    wrapper.find('#description').simulate('change', { target: { value: item.description } });
+    typeInto(wrapper, { name: 'title', value: item.title });
+    typeInto(wrapper, { name: 'price', value: item.price, type: 'number' });
+    typeInto(wrapper, { name: 'description', value: item.description, inputType: 'textarea' });
     await act(() => wait());
     wrapper.find('form[data-test="form"]').simulate('submit');
     await act(() => wait());

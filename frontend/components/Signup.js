@@ -36,7 +36,7 @@ const Signup = () => {
   }
 
   return (
-    <Form onSubmit={handleSignup} method="post">
+    <Form onSubmit={handleSignup} method="post" data-test="form">
       <fieldset disabled={loading} aria-busy={loading}>
         <h2>Signup for an account</h2>
 

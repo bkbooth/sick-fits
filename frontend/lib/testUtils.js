@@ -32,3 +32,7 @@ export const fakeCartItem = overrides => ({
   user: fakeUser(),
   ...overrides,
 });
+
+export function typeInto(wrapper, name, type, value) {
+  wrapper.find(`input[name="${name}"]`).simulate('change', { target: { name, type, value } });
+}

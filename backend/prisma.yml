@@ -1,6 +1,8 @@
-endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.prisma
+endpoint: ${env:PRISMA_ENDPOINT}
+# enable secret when deploying to prod
 # secret: ${env:PRISMA_SECRET}
+
 hooks:
   post-deploy:
     - graphql get-schema -p prisma

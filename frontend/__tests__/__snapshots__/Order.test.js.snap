@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Order /> errors with a not found order 1`] = `
+<p
+  data-test="graphql-error"
+>
+  <strong>
+    Shoot!
+  </strong>
+  Network error: Order not found
+</p>
+`;
+
+exports[`<Order /> renders and matches snapshot 1`] = `
+<div
+  className="OrderStyles-sc-4oqalm-0 eDzsVm"
+  data-test="order"
+>
+  <Head>
+    <Component
+      handleStateChange={null}
+      inAmpMode={false}
+      reduceComponentsToState={[Function]}
+    />
+  </Head>
+  <p>
+    <span>
+      Order ID
+    </span>
+    <span>
+      3a430a73-c9e9-4bcc-b46a-41618965ffea
+    </span>
+  </p>
+  <p>
+    <span>
+      Charge
+    </span>
+    <span>
+      ch_f090492fd03e
+    </span>
+  </p>
+  <p>
+    <span>
+      Date
+    </span>
+    <span>
+      27th April, 2016 10:51 PM
+    </span>
+  </p>
+  <p>
+    <span>
+      Total
+    </span>
+    <span>
+      $565.17
+       for 
+      2
+       item
+      s
+    </span>
+  </p>
+  <div
+    className="items"
+  >
+    <div
+      className="order-item"
+      key="18d9d810-88de-4ec8-884c-84bf78c1398f"
+    >
+      <img
+        alt="Debitis rem similique"
+        src="aspernatur.jpg"
+      />
+      <div
+        className="item-details"
+      >
+        <h2>
+          Debitis rem similique
+        </h2>
+        <p>
+          Quantity: 
+          1
+          <br />
+          Price: 
+          $14.74
+          <br />
+          Subtotal: 
+          $14.74
+        </p>
+        <p>
+          Sed sapiente soluta corporis commodi. Nisi cum ducimus. Doloremque maiores esse atque et. Explicabo dolores ipsam laboriosam non itaque voluptas ea ducimus autem.
+        </p>
+      </div>
+    </div>
+    <div
+      className="order-item"
+      key="7bcd266d-b805-4ab0-80e0-4cef4042cadc"
+    >
+      <img
+        alt="Qui enim et"
+        src="et.jpg"
+      />
+      <div
+        className="item-details"
+      >
+        <h2>
+          Qui enim et
+        </h2>
+        <p>
+          Quantity: 
+          4
+          <br />
+          Price: 
+          $178.90
+          <br />
+          Subtotal: 
+          $715.60
+        </p>
+        <p>
+          In sunt occaecati nulla aut sunt. Rerum at sint dolores fugiat quis et voluptas.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

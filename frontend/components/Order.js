@@ -38,7 +38,7 @@ const Order = ({ orderId }) => {
 
   const { order } = data;
   return (
-    <OrderStyles>
+    <OrderStyles data-test="order">
       <Head>
         <title>Order {order.id} | Sick Fits!</title>
       </Head>

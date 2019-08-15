@@ -9,7 +9,8 @@
     "dev": "next -p 7777",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "now"
   },
   "dependencies": {
     "@apollo/react-common": "^3.0.0",
@@ -24,6 +25,7 @@
     "lodash.debounce": "^4.0.8",
     "next": "^9.0.3",
     "next-with-apollo": "^4.2.0",
+    "now": "^16.1.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

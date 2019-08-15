@@ -1,0 +1,9 @@
+{
+  "name": "sick-fits",
+  "version": 2,
+  "build": {
+    "env": {
+      "GRAPHQL_URL": "@sick-fits-graphql-url"
+    }
+  }
+}

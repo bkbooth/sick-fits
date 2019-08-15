@@ -4,29 +4,28 @@ import { act } from 'react-dom/test-utils';
 import { typeInto } from 'lib/testUtils';
 import RequestReset, { REQUEST_RESET_MUTATION } from 'components/RequestReset';
 
-const mocks = [
-  {
-    request: { query: REQUEST_RESET_MUTATION, variables: { email: 'test@example.com' } },
-    result: { data: { requestReset: { __typename: 'Message', message: 'Success!' } } },
-  },
-];
+function render(mocks = undefined) {
+  return mount(
+    <MockedProvider mocks={mocks}>
+      <RequestReset />
+    </MockedProvider>
+  );
+}
 
 describe('<RequestReset />', () => {
   it('renders and matches snapshot', () => {
-    const wrapper = mount(
-      <MockedProvider>
-        <RequestReset />
-      </MockedProvider>
-    );
+    const wrapper = render();
     expect(wrapper.find('form[data-test="form"]')).toMatchSnapshot();
   });
 
   it('calls the request reset mutation', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <RequestReset />
-      </MockedProvider>
-    );
+    const mocks = [
+      {
+        request: { query: REQUEST_RESET_MUTATION, variables: { email: 'test@example.com' } },
+        result: { data: { requestReset: { __typename: 'Message', message: 'Success!' } } },
+      },
+    ];
+    const wrapper = render(mocks);
     typeInto(wrapper, { type: 'email', name: 'email', value: 'test@example.com' });
     wrapper.find('form').simulate('submit');
     await act(() => wait());

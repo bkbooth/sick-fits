@@ -7,6 +7,14 @@ import CreateItem, { CREATE_ITEM_MUTATION } from 'components/CreateItem';
 
 const fakeImageUrl = 'https://example.com/images/item.jpg';
 
+function render(mocks = undefined) {
+  return mount(
+    <MockedProvider mocks={mocks}>
+      <CreateItem />
+    </MockedProvider>
+  );
+}
+
 describe('<CreateItem />', () => {
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -25,20 +33,12 @@ describe('<CreateItem />', () => {
   });
 
   it('renders and matches snapshot', () => {
-    const wrapper = mount(
-      <MockedProvider>
-        <CreateItem />
-      </MockedProvider>
-    );
+    const wrapper = render();
     expect(wrapper.find('form[data-test="form"]')).toMatchSnapshot();
   });
 
   it('uploads a file when changed', async () => {
-    const wrapper = mount(
-      <MockedProvider>
-        <CreateItem />
-      </MockedProvider>
-    );
+    const wrapper = render();
     wrapper.find('#file').simulate('change', { target: { files: ['item.jpg'] } });
     await act(() => wait());
     expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -46,11 +46,7 @@ describe('<CreateItem />', () => {
   });
 
   it('handles state updates', async () => {
-    const wrapper = mount(
-      <MockedProvider>
-        <CreateItem />
-      </MockedProvider>
-    );
+    const wrapper = render();
     typeInto(wrapper, { name: 'title', value: 'Test item' });
     typeInto(wrapper, { name: 'price', value: '50000', type: 'number' });
     typeInto(wrapper, { name: 'description', value: 'This is a test item', inputType: 'textarea' });
@@ -78,11 +74,7 @@ describe('<CreateItem />', () => {
         result: { data: { createItem: item } },
       },
     ];
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <CreateItem />
-      </MockedProvider>
-    );
+    const wrapper = render(mocks);
     wrapper.find('#file').simulate('change', { target: { files: [item.image] } });
     typeInto(wrapper, { name: 'title', value: item.title });
     typeInto(wrapper, { name: 'price', value: item.price, type: 'number' });

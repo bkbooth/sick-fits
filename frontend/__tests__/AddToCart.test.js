@@ -23,13 +23,17 @@ const mocks = [
   },
 ];
 
+function render() {
+  return mount(
+    <MockedProvider mocks={mocks}>
+      <AddToCart itemId={cartItem.id} />
+    </MockedProvider>
+  );
+}
+
 describe('<AddToCart />', () => {
   it('renders and matches snapshot', () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <AddToCart itemId={cartItem.id} />
-      </MockedProvider>
-    );
+    const wrapper = render();
     expect(wrapper.find('button')).toMatchSnapshot();
   });
 
@@ -56,11 +60,7 @@ describe('<AddToCart />', () => {
   });
 
   it('shows button loading state when clicked', () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <AddToCart itemId={cartItem.id} />
-      </MockedProvider>
-    );
+    const wrapper = render();
     expect(wrapper.text()).toContain('Add to cart');
     expect(wrapper.find('button').prop('disabled')).toBe(false);
     wrapper.find('button').simulate('click');

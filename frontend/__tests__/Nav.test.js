@@ -6,40 +6,27 @@ import Nav from 'components/Nav';
 import { CURRENT_USER_QUERY } from 'components/User';
 
 const me = fakeUser();
-const cart = [fakeCartItem(), fakeCartItem()];
 
-const notSignedInMocks = [
-  {
-    request: { query: CURRENT_USER_QUERY },
-    result: { data: { me: null } },
-  },
-];
-
-const signedInMocks = [
-  {
-    request: { query: CURRENT_USER_QUERY },
-    result: { data: { me } },
-  },
-];
-
-const signedInWithCartItemsMocks = [
-  {
-    request: { query: CURRENT_USER_QUERY },
-    result: {
-      data: { me: { ...me, cart } },
-    },
-  },
-];
+async function render(mocks) {
+  const wrapper = mount(
+    <MockedProvider mocks={mocks}>
+      <Nav />
+    </MockedProvider>
+  );
+  await act(() => wait());
+  wrapper.update();
+  return wrapper;
+}
 
 describe('<Nav />', () => {
   it('renders minimal nav when signed out', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={notSignedInMocks}>
-        <Nav />
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const notSignedInMocks = [
+      {
+        request: { query: CURRENT_USER_QUERY },
+        result: { data: { me: null } },
+      },
+    ];
+    const wrapper = await render(notSignedInMocks);
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav).toMatchSnapshot();
     expect(nav.children()).toHaveLength(2);
@@ -48,13 +35,13 @@ describe('<Nav />', () => {
   });
 
   it('renders full nav when signed in', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={signedInMocks}>
-        <Nav />
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const signedInMocks = [
+      {
+        request: { query: CURRENT_USER_QUERY },
+        result: { data: { me } },
+      },
+    ];
+    const wrapper = await render(signedInMocks);
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav.children()).toHaveLength(6);
     expect(nav.find('Link[href="/items"]').exists()).toBe(true);
@@ -66,13 +53,16 @@ describe('<Nav />', () => {
   });
 
   it('renders the amount of items in the cart', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={signedInWithCartItemsMocks}>
-        <Nav />
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const cart = [fakeCartItem(), fakeCartItem()];
+    const signedInWithCartItemsMocks = [
+      {
+        request: { query: CURRENT_USER_QUERY },
+        result: {
+          data: { me: { ...me, cart } },
+        },
+      },
+    ];
+    const wrapper = await render(signedInWithCartItemsMocks);
     const nav = wrapper.find('ul[data-test="nav"]');
     expect(nav.find('div.count')).toMatchSnapshot();
   });

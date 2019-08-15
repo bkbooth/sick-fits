@@ -4,6 +4,14 @@ import { act } from 'react-dom/test-utils';
 import { fakeItem } from 'lib/testUtils';
 import SingleItem, { SINGLE_ITEM_QUERY } from 'components/SingleItem';
 
+function render(mocks, itemId) {
+  return mount(
+    <MockedProvider mocks={mocks}>
+      <SingleItem itemId={itemId} />
+    </MockedProvider>
+  );
+}
+
 describe('<SingleItem />', () => {
   it('renders with proper data', async () => {
     const item = fakeItem();
@@ -13,11 +21,7 @@ describe('<SingleItem />', () => {
         result: { data: { item } },
       },
     ];
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <SingleItem itemId={item.id} />
-      </MockedProvider>
-    );
+    const wrapper = render(mocks, item.id);
     expect(wrapper.text()).toContain('Loading...');
 
     await act(() => wait());
@@ -34,11 +38,7 @@ describe('<SingleItem />', () => {
         error: new Error('Item not found'),
       },
     ];
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <SingleItem itemId="invalid-id" />
-      </MockedProvider>
-    );
+    const wrapper = render(mocks, 'invalid-id');
     await act(() => wait());
     wrapper.update();
     expect(wrapper.find('[data-test="graphql-error"]')).toMatchSnapshot();

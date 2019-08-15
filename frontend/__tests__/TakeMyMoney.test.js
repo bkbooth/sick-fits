@@ -26,6 +26,19 @@ const mocks = [
   },
 ];
 
+async function render() {
+  const wrapper = mount(
+    <MockedProvider mocks={mocks}>
+      <TakeMyMoney>
+        <button>Checkout</button>
+      </TakeMyMoney>
+    </MockedProvider>
+  );
+  await act(() => wait());
+  wrapper.update();
+  return wrapper;
+}
+
 describe('<TakeMyMoney />', () => {
   beforeEach(() => {
     Router.push = jest.fn();
@@ -40,28 +53,12 @@ describe('<TakeMyMoney />', () => {
   });
 
   it('renders and matches snapshot', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <TakeMyMoney>
-          <button>Checkout</button>
-        </TakeMyMoney>
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const wrapper = await render();
     expect(wrapper.find('ReactStripeCheckout')).toMatchSnapshot();
   });
 
   it('routes to the order page after order is created', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <TakeMyMoney>
-          <button>Checkout</button>
-        </TakeMyMoney>
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const wrapper = await render();
     await act(async () => {
       wrapper.find('ReactStripeCheckout').prop('token')({ id: 'tok_abc123' });
       await wait();
@@ -71,15 +68,7 @@ describe('<TakeMyMoney />', () => {
   });
 
   it('shows the progress bar while creating order', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <TakeMyMoney>
-          <button>Checkout</button>
-        </TakeMyMoney>
-      </MockedProvider>
-    );
-    await act(() => wait());
-    wrapper.update();
+    const wrapper = await render();
     await act(async () => {
       wrapper.find('ReactStripeCheckout').prop('token')({ id: 'tok_abc123' });
       await wait();

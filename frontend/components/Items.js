@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import Error from 'components/ErrorMessage';
 import Item from 'components/Item';
 import Pagination from 'components/Pagination';
-import { ITEMS_PER_PAGE } from '../config';
+
+const itemsPerPage = process.env.itemsPerPage;
 
 export const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS($skip: Int = 0, $first: Int = ${ITEMS_PER_PAGE}) {
+  query ALL_ITEMS($skip: Int = 0, $first: Int = ${itemsPerPage}) {
     items(orderBy: createdAt_DESC, skip: $skip, first: $first) {
       id
       title
@@ -34,7 +35,7 @@ const ItemsList = styled.div`
 
 const Items = ({ page }) => {
   const { data, error, loading } = useQuery(ALL_ITEMS_QUERY, {
-    variables: { skip: page * ITEMS_PER_PAGE - ITEMS_PER_PAGE },
+    variables: { skip: page * itemsPerPage - itemsPerPage },
   });
 
   return (

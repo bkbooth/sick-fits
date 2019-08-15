@@ -34,20 +34,23 @@ const TakeMyMoney = ({ children }) => {
 
   return (
     <User>
-      {({ data: { me } }) => (
-        <StripeCheckout
-          name="Sick Fits!"
-          description={`Order of ${countCartItems(me.cart)} items`}
-          image={me.cart[0].item ? me.cart[0].item.image : null}
-          amount={calculateTotalPrice(me.cart)}
-          currency="AUD"
-          stripeKey="pk_test_nmnQGOikwUBoSjWEFR2tvQdR"
-          email={me.email}
-          token={onToken}
-        >
-          {children}
-        </StripeCheckout>
-      )}
+      {({ data: { me }, loading }) => {
+        if (loading) return null;
+        return (
+          <StripeCheckout
+            name="Sick Fits!"
+            description={`Order of ${countCartItems(me.cart)} items`}
+            image={me.cart.length > 0 && me.cart[0].item ? me.cart[0].item.image : null}
+            amount={calculateTotalPrice(me.cart)}
+            currency="AUD"
+            stripeKey="pk_test_nmnQGOikwUBoSjWEFR2tvQdR"
+            email={me.email}
+            token={onToken}
+          >
+            {children}
+          </StripeCheckout>
+        );
+      }}
     </User>
   );
 };

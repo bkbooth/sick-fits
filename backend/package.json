@@ -22,10 +22,10 @@
     "nodemailer": "^6.3.0",
     "nodemon": "^1.19.1",
     "prisma-binding": "^2.3.15",
-    "stripe": "^7.7.0"
+    "stripe": "^7.8.0"
   },
   "devDependencies": {
-    "graphql-cli": "^3.0.12",
+    "graphql-cli": "^3.0.14",
     "prisma": "^1.34.5"
   },
   "resolutions": {
